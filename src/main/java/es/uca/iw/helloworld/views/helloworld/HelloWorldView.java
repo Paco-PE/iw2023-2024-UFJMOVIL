@@ -1,4 +1,4 @@
-package es.uca.iw.views.helloworld;
+package es.uca.iw.helloworld.views.helloworld;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -9,11 +9,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import es.uca.iw.views.MainLayout;
+
+import es.uca.iw.MainLayout;
 
 @PageTitle("Hello World")
 @Route(value = "hello", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+@RouteAlias(value = "hello", layout = MainLayout.class)
 public class HelloWorldView extends VerticalLayout {
 
     private TextField name;
