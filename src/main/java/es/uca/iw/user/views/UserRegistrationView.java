@@ -1,5 +1,6 @@
 package es.uca.iw.user.views;
 
+import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H4;
@@ -44,20 +45,22 @@ public class UserRegistrationView extends VerticalLayout {
     public UserRegistrationView(UserManagementService service) {
         this.service = service;
 
-        title = new H1("Register User");
-        username = new TextField("Your username");
+        title = new H1("Registrate");
+        Html textobienvenida = new Html ("<h4>Bienvenido a UFJMOVIL, por favor registrate</h4>");
+
+        username = new TextField("Nombre de usuario:");
         username.setId("username");
 
-        email = new EmailField("Your email");
+        email = new EmailField("Direccion email:");
         email.setId("email");
 
-        password = new PasswordField("Your password");
+        password = new PasswordField("Password");
         password.setId("password");
 
-        password2 = new PasswordField("Repeat your password");
+        password2 = new PasswordField("Repite Password");
         password2.setId("password2");
 
-        register = new Button("Register");
+        register = new Button("Registrarse");
         register.setId("register");
 
         status = new H4();
@@ -66,7 +69,7 @@ public class UserRegistrationView extends VerticalLayout {
 
         setMargin(true);
 
-        add(title, username, email, password, password2, register, status);
+        add(title,textobienvenida, username, email, password, password2, register, status);
 
         register.addClickListener(e -> onRegisterButtonClick());
 
