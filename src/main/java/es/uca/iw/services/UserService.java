@@ -67,5 +67,25 @@ public class UserService {
 
     }
 
+    public boolean loginUser(User user) {
+
+        // Comprobamos si el usuario existe
+        Optional<User> existingUser = repository.findByUsername(user.getUsername());
+    
+        if (!existingUser.isPresent()) {
+            return false;
+        }
+    
+        // Comprobamos si la contraseña es correcta
+        if (!existingUser.get().getPassword().equals(user.getPassword())) {
+            return false;
+        }
+        
+                
+        // Iniciamos sesión al usuario
+        //authenticationManager.login(existingUser.get());
+    
+        return true;
+    }
 
 }
