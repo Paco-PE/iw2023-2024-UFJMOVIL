@@ -30,24 +30,12 @@ public class User {
     @NotEmpty
     private String password;
 
-    private boolean active;
-
-    private String registerCode = "";
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public String getPassword() {
@@ -84,14 +72,6 @@ public class User {
             return id.equals(other.id);
         }
         return super.equals(other);
-    }
-
-    public String getRegisterCode() {
-        return registerCode;
-    }
-
-    public void setRegisterCode(String registerCode) {
-        this.registerCode = registerCode;
     }
 
     public String getUsername() {
