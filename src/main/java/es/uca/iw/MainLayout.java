@@ -1,6 +1,5 @@
 package es.uca.iw;
 
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.Div;
@@ -27,9 +26,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import com.vaadin.flow.theme.lumo.LumoUtility.Whitespace;
 import com.vaadin.flow.theme.lumo.LumoUtility.Width;
 
-import es.uca.iw.helloworld.views.about.AboutView;
-import es.uca.iw.helloworld.views.helloworld.HelloWorldView;
-import es.uca.iw.user.views.UserRegistrationView;
+import es.uca.iw.views.*;
 
 import org.vaadin.lineawesome.LineAwesomeIcon;
 
@@ -104,13 +101,8 @@ public class MainLayout extends AppLayout {
     }
 
     private MenuItemInfo[] createMenuItems() {
-        return new MenuItemInfo[]{ //
-                new MenuItemInfo("Hello World", LineAwesomeIcon.GLOBE_SOLID.create(), HelloWorldView.class), //
-
+        return new MenuItemInfo[]{
                 new MenuItemInfo("Registro de Usuario", LineAwesomeIcon.GLOBE_SOLID.create(), UserRegistrationView.class), //
-
-                new MenuItemInfo("About", LineAwesomeIcon.FILE.create(), AboutView.class), //
-
         };
     }
 

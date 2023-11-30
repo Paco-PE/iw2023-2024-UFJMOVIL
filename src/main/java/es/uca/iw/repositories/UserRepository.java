@@ -1,7 +1,8 @@
-package es.uca.iw.user.repositories;
+package es.uca.iw.repositories;
 
-import es.uca.iw.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import es.uca.iw.domain.User;
 
 import java.util.List;
 import java.util.Optional;

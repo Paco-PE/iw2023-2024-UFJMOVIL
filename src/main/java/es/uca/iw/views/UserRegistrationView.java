@@ -1,4 +1,4 @@
-package es.uca.iw.user.views;
+package es.uca.iw.views;
 
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
@@ -13,10 +13,12 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import es.uca.iw.user.domain.User;
-import es.uca.iw.user.services.UserManagementService;
+
+import es.uca.iw.services.UserService;
 
 import es.uca.iw.MainLayout;
+import es.uca.iw.domain.User;
+
 import java.io.Serial;
 
 @PageTitle("Registrate User")
@@ -27,7 +29,7 @@ public class UserRegistrationView extends VerticalLayout {
     @Serial
     private static final long serialVersionUID = 851217309689685413L;
 
-    private final UserManagementService service;
+    private final UserService service;
 
     private final H1 title;
 
@@ -42,7 +44,7 @@ public class UserRegistrationView extends VerticalLayout {
 
     private final BeanValidationBinder<User> binder;
 
-    public UserRegistrationView(UserManagementService service) {
+    public UserRegistrationView(UserService service) {
         this.service = service;
 
         title = new H1("Registrate");

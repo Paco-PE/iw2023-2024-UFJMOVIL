@@ -1,7 +1,7 @@
-package es.uca.iw.user.services;
+package es.uca.iw.services;
 
-import es.uca.iw.user.domain.User;
-import es.uca.iw.user.repositories.UserRepository;
+import es.uca.iw.domain.User;
+import es.uca.iw.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -12,16 +12,13 @@ import java.util.UUID;
 
 
 @Service
-public class UserManagementService {
+public class UserService {
 
     private final UserRepository repository;
 
-    private final EmailService emailService;
-
     @Autowired
-    public UserManagementService(UserRepository repository, EmailService emailService) {
+    public UserService(UserRepository repository) {
         this.repository = repository;
-        this.emailService = emailService;
     }
 
 
@@ -31,7 +28,6 @@ public class UserManagementService {
 
         try {
             repository.save(user);
-            emailService.sendRegistrationEmail(user);
             return true;
         } catch (DataIntegrityViolationException e) {
             return false;

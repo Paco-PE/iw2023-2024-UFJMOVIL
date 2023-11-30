@@ -1,4 +1,4 @@
-package es.uca.iw.user.domain;
+package es.uca.iw.domain;
 
 
 import jakarta.persistence.*;

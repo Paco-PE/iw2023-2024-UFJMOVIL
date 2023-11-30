@@ -1,7 +1,7 @@
-package es.uca.iw.user.controllers;
+package es.uca.iw.controllers;
 
-import es.uca.iw.user.domain.User;
-import es.uca.iw.user.services.UserManagementService;
+import es.uca.iw.domain.User;
+import es.uca.iw.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,9 +12,9 @@ import java.util.UUID;
 @RestController
 public class UserRestController {
 
-    private final UserManagementService service;
+    private final UserService service;
 
-    public UserRestController(UserManagementService service) {
+    public UserRestController(UserService service) {
         this.service = service;
     }
 
