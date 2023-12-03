@@ -20,7 +20,8 @@ public class UserService {
     }
 
     public boolean registerUser(User user) {
-        user.setPassword("codedpassword"); // TODO: encode password
+        //user.setPassword("codedpassword"); // TODO: encode password
+        user.setRegisterCode(UUID.randomUUID().toString().substring(0, 5));
 
         try {
             repository.save(user);
@@ -28,6 +29,21 @@ public class UserService {
         } catch (DataIntegrityViolationException e) {
             return false;
         }
+    }
+
+    public boolean activateUser(String email, String registerCode) {
+
+        Optional<User> user = repository.findByEmail(email);
+
+        if (user.isPresent() && user.get().getRegisterCode().equals(registerCode)) {
+            user.get().setActive(true);
+            repository.save(user.get());
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
 
     public Optional<User> loadUserByUsername(String username) {
@@ -38,15 +54,14 @@ public class UserService {
         return repository.findById(userId);
     }
 
-    public List<User> loadUsers() {
-        return repository.findAll();
+    public List<User> loadActiveUsers() {
+        return repository.findByActiveTrue();
     }
 
     public void delete(User testUser) {
         repository.delete(testUser);
     }
 
-<<<<<<< HEAD
     public boolean loginUser(User user) {
 
         // Comprobamos si el usuario existe
@@ -64,10 +79,8 @@ public class UserService {
                 
         // Iniciamos sesión al usuario
         //authenticationManager.login(existingUser.get());
-    
+        
         return true;
     }
 
-=======
->>>>>>> 151fb5cb7eb5fdec4cc77043c93bdeca42bce17d
 }

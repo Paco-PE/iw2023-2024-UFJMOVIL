@@ -30,6 +30,10 @@ public class User {
     @NotEmpty
     private String password;
 
+    private boolean active = true;
+
+    private String registerCode = "";
+
     public String getEmail() {
         return email;
     }
@@ -37,6 +41,15 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 
     public String getPassword() {
         return password;
@@ -73,6 +86,15 @@ public class User {
         }
         return super.equals(other);
     }
+
+    public String getRegisterCode() {
+        return registerCode;
+    }
+
+    public void setRegisterCode(String registerCode) {
+        this.registerCode = registerCode;
+    }
+
 
     public String getUsername() {
         return username;

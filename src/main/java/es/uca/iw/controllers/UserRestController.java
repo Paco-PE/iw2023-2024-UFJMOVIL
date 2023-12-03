@@ -20,7 +20,7 @@ public class UserRestController {
 
     @GetMapping("/api/users")
     public List<User> all() {
-        return service.loadUsers();
+        return service.loadActiveUsers();
     }
 
     @PostMapping("/api/users")

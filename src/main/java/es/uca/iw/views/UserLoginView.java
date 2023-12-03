@@ -75,17 +75,17 @@ public class UserLoginView extends VerticalLayout {
 
         if (binder.validate().isOk()) {
             if (service.loginUser(binder.getBean())) {
-                status.setText("Welcome!");
+                status.setText("Bienvenido de nuevo");
                 status.setVisible(true);
                 binder.setBean(new User());
                 password.setValue("");
 
             } else {
-                Notification.show("Please, check input data");
+                Notification.show("El usuario o la contraseña no es correcta");
             }
 
         } else {
-            Notification.show("Please, check input data");
+            Notification.show("El usuario o la contraseña no es correcta");
         }
 
     }
