@@ -1,10 +1,11 @@
 package es.uca.iw.domain;
 
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "contrato")
-public class Contrato {
+@Table(name = "consulta")
+public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
