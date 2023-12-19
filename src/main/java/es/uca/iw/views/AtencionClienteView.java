@@ -24,5 +24,7 @@ public class AtencionClienteView extends VerticalLayout {
 
         add(welcomeText);
         add(welcomeText2);
+
+        
     }
 }
