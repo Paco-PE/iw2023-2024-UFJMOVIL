@@ -28,7 +28,6 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 @Uses(Icon.class)
 public class UserMiZonaView extends Composite<VerticalLayout> {
-
     public UserMiZonaView() {
         H2 txtServiciosOfertados = new H2();
         HorizontalLayout layoutRow = new HorizontalLayout();

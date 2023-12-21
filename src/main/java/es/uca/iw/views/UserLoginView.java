@@ -1,6 +1,7 @@
 package es.uca.iw.views;
 
 import com.vaadin.flow.component.Html;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H4;
@@ -79,7 +80,7 @@ public class UserLoginView extends VerticalLayout {
                 status.setVisible(true);
                 binder.setBean(new User());
                 password.setValue("");
-                //UI.getCurrent().navigate("");
+                UI.getCurrent().navigate("mi-zona");
 
             } else {
                 Notification.show("El usuario o la contraseña no es correcta");
