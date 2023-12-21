@@ -23,7 +23,7 @@ import java.io.Serial;
 
 @PageTitle("Registrate User")
 @Route(value = "userregistration", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+@RouteAlias(value = "user/register", layout = MainLayout.class)
 public class UserRegistrationView extends VerticalLayout {
 
     @Serial

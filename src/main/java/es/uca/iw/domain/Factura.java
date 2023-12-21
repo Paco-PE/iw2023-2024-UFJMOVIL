@@ -1,19 +1,18 @@
 package es.uca.iw.domain;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "tarifa")
-public class Tarifa {
+@Table(name = "factura")
+public class Factura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotEmpty
-    private float precio;
+    private float importe;
 
     public long getId() {
         return id;
@@ -23,11 +22,11 @@ public class Tarifa {
         this.id = id;
     }
 
-    public float getPrecio(){
-        return precio;
+    public float getImporte() {
+        return importe;
     }
 
-    public void setPrecio(float precio){
-        this.precio = precio;
+    public void setImporte(float importe) {
+        this.importe = importe;
     }
 }

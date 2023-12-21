@@ -102,9 +102,14 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{
+                new MenuItemInfo("Inicio", LineAwesomeIcon.GLOBE_SOLID.create(), InicioView.class),
                 new MenuItemInfo("Registro de Usuario", LineAwesomeIcon.GLOBE_SOLID.create(), UserRegistrationView.class), //
-                new MenuItemInfo("Login", LineAwesomeIcon.GLOBE_SOLID.create(), UserLoginView.class), //
+                new MenuItemInfo("Login", LineAwesomeIcon.GLOBE_SOLID.create(), UserLoginView.class),
                 new MenuItemInfo("Mi zona", LineAwesomeIcon.GLOBE_SOLID.create(), UserMiZonaView.class)
+                new MenuItemInfo("Finanzas", LineAwesomeIcon.GLOBE_SOLID.create(), FinanzasView.class),
+                new MenuItemInfo("Atención Cliente", LineAwesomeIcon.GLOBE_SOLID.create(), AtencionClienteView.class),
+                new MenuItemInfo("Ventas", LineAwesomeIcon.GLOBE_SOLID.create(), VentasView.class),
+                new MenuItemInfo("Genera Factura", LineAwesomeIcon.GLOBE_SOLID.create(), GenerarFacturaView.class),
         };
     }
 
