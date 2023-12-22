@@ -5,15 +5,17 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import es.uca.iw.MainLayout;
 
 @PageTitle("Generar Factura")
-@Route(value = "/facturanueva", layout = MainLayout.class)
-public class GenerarFacturaView extends VerticalLayout {
-
+@Route(value = "/generarfactura/:id", layout = MainLayout.class)
+public class GenerarFacturaView extends VerticalLayout implements HasUrlParameter<String>{
+    private String id;
 
     public GenerarFacturaView(){
         H1 welcomeText = new H1("UFJMOVIL");
@@ -26,6 +28,13 @@ public class GenerarFacturaView extends VerticalLayout {
 
         add(welcomeText);
         add(welcomeText2);
+    }
+
+    @Override
+    public void setParameter(BeforeEvent event, String parameter) {
+        this.id = parameter;
+        H2 uuidText = new H2("UUID: " + id);
+        add(uuidText);
     }
     
 }
