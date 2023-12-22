@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "tarifa")
-public class Tarifa {
+public class Servicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,8 +4,7 @@ package es.uca.iw.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
+
 
 import java.util.UUID;
 
@@ -14,8 +13,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue
-    @JdbcTypeCode(SqlTypes.CHAR)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @NotEmpty
