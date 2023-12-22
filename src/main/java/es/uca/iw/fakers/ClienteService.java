@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import es.uca.iw.domain.Cliente;
