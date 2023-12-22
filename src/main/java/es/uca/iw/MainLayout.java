@@ -110,6 +110,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Atención Cliente", LineAwesomeIcon.GLOBE_SOLID.create(), AtencionClienteView.class),
                 new MenuItemInfo("Ventas", LineAwesomeIcon.GLOBE_SOLID.create(), VentasView.class),
                 new MenuItemInfo("Genera Factura", LineAwesomeIcon.GLOBE_SOLID.create(), GenerarFacturaView.class),
+                new MenuItemInfo("Contesta Consulta", LineAwesomeIcon.GLOBE_SOLID.create(), ContestaConsultaView.class),
         };
     }
 

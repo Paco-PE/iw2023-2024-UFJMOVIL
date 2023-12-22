@@ -4,6 +4,7 @@ import es.uca.iw.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.HasValue.ValueChangeListener;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
@@ -28,6 +29,9 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 @Uses(Icon.class)
 public class UserMiZonaView extends Composite<VerticalLayout> {
+
+    private Button ContactaButton = new Button("Contacta con nosotros");
+
     public UserMiZonaView() {
         H2 txtServiciosOfertados = new H2();
         HorizontalLayout layoutRow = new HorizontalLayout();
@@ -340,6 +344,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         checkboxFijo4.setWidth("min-content");
         h317.setText("100€ al mes");
         getContent().setAlignSelf(FlexComponent.Alignment.CENTER, h317);
+        getContent().setAlignSelf(FlexComponent.Alignment.CENTER, ContactaButton);
         h317.setWidth("max-content");
         buttonPrimary.setText("Actualizar contrato");
         buttonPrimary.setEnabled(false); // Deshabilitar el botón al principio
@@ -566,10 +571,16 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         layoutRow20.add(h316);
         layoutRow20.add(checkboxFijo4);
         getContent().add(h317);
+        getContent().add(ContactaButton);
         getContent().add(buttonPrimary);
         getContent().add(hr);
         getContent().add(h25);
         getContent().add(hr2);
         getContent().add(h26);
+
+        ContactaButton.addClickListener(event -> {
+        UI.getCurrent().navigate("/consultas");
+    });
+       
     }
 }
