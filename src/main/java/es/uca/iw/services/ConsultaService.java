@@ -21,4 +21,8 @@ public class ConsultaService {
     public List<Consulta> findAll(){
         return repository.findAll();
     }
+
+    public Consulta saveConsulta(Consulta consulta){
+        return repository.save(consulta);
+    }
 }

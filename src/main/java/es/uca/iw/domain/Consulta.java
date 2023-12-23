@@ -12,6 +12,8 @@ public class Consulta {
     
     private String descripcion;
 
+    private boolean resuelta;
+
     public long getId() {
         return id;
     }
@@ -26,6 +28,14 @@ public class Consulta {
 
     public void setDescripcion(String descripcion){
         this.descripcion = descripcion;
+    }
+
+    public boolean getResuelta(){
+        return resuelta;
+    }
+
+    public void setResuelta(boolean resuelta){
+        this.resuelta = resuelta;
     }
 
 }
