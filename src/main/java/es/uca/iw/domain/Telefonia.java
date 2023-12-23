@@ -8,7 +8,7 @@ public class Telefonia extends Servicio {
     private int minutosMaximos;
     private int minutosConsumidos; // atributo derivado y calculado
     private int llamadasMaximas;
-    private int nLlamadasRealizadas;
+    private int nLlamadasRealizadas; // atributo derivado y calculado
     private HashSet<Llamada> llamadasRealizadas;
     private List<String> numerosBloqueados;
 
@@ -24,8 +24,12 @@ public class Telefonia extends Servicio {
         return minutosConsumidos;
     }
 
-    public void setMinutosConsumidos(int minutosConsumidos) {
-        this.minutosConsumidos = minutosConsumidos;
+    public void setMinutosConsumidos() {
+        int totalMinutos = 0;
+        for (Llamada llamada : llamadasRealizadas) {
+            totalMinutos += llamada.getDuracion();
+        }
+        this.minutosConsumidos = totalMinutos;
     }
 
     public int getLlamadasMaximas() {
@@ -40,8 +44,8 @@ public class Telefonia extends Servicio {
         return nLlamadasRealizadas;
     }
 
-    public void setnLlamadasRealizadas(int nLlamadasRealizadas) {
-        this.nLlamadasRealizadas = nLlamadasRealizadas;
+    public void setnLlamadasRealizadas() {
+        this.nLlamadasRealizadas = llamadasRealizadas.size();
     }
 
     public HashSet<Llamada> getLlamadasRealizadas() {
@@ -52,11 +56,21 @@ public class Telefonia extends Servicio {
         this.llamadasRealizadas = llamadasRealizadas;
     }
 
+    public void registrarLlamada(Llamada llamada) {
+        nLlamadasRealizadas++;
+        llamadasRealizadas.add(llamada);
+        minutosConsumidos += llamada.getDuracion();
+    }
+
     public List<String> getNumerosBloqueados() {
         return numerosBloqueados;
     }
 
     public void setNumerosBloqueados(List<String> numerosBloqueados) {
         this.numerosBloqueados = numerosBloqueados;
+    }
+
+    public void bloquearNumero(String numeroBloq) {
+        numerosBloqueados.add(numeroBloq);
     }
 }
