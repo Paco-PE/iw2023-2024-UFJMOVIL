@@ -1,5 +1,6 @@
 package es.uca.iw.views;
 
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
@@ -18,6 +19,7 @@ import es.uca.iw.services.ConsultaService;
 public class AtencionClienteView extends VerticalLayout {
     private final ConsultaService consultaService;
     private final Grid<Consulta> grid = new Grid<>(Consulta.class);
+    private Checkbox checkbox;
 
 
     public AtencionClienteView(ConsultaService consultaService){
@@ -33,6 +35,19 @@ public class AtencionClienteView extends VerticalLayout {
         grid.setItems(consultaService.findAll());
         grid.removeAllColumns(); // Eliminar todas las columnas generadas automáticamente
         grid.addColumn(Consulta::getDescripcion).setHeader("Descripción");
+
+        grid.addComponentColumn(consulta -> {
+            Checkbox checkbox = new Checkbox();
+            checkbox.setValue(consulta.getResuelta()); // Establecer el valor inicial del Checkbox
+            checkbox.addValueChangeListener(event -> {
+                consulta.setResuelta(event.getValue()); // Actualizar el estado de resolución en la consulta
+                consultaService.saveConsulta(consulta); // Guardar la consulta actualizada en la base de datos
+            });
+            return checkbox;
+        }).setHeader("Resuelta");
+
+        
+        
 
         add(welcomeText);
         add(welcomeText2);

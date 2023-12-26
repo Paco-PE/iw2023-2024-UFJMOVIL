@@ -11,7 +11,7 @@ import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Consulta;
 import es.uca.iw.services.ConsultaService;
 
-@PageTitle("Iniciar Sesion")
+@PageTitle("Contesta consulta")
 @Route(value = "/consultas", layout = MainLayout.class)
 public class ContestaConsultaView extends VerticalLayout{
     ConsultaService consultaService;
@@ -42,6 +42,7 @@ public class ContestaConsultaView extends VerticalLayout{
             notification.setPosition(Notification.Position.TOP_CENTER);
             notification.setDuration(3000);
             notification.open();
+            descripcion.clear();
         });
         add(guardarBoton);
     }
