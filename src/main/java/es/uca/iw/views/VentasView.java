@@ -1,6 +1,8 @@
 package es.uca.iw.views;
 
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
@@ -10,7 +12,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import es.uca.iw.MainLayout;
-import es.uca.iw.domain.Consulta;
 import es.uca.iw.domain.Servicio;
 import es.uca.iw.services.ServicioService;
 
@@ -31,13 +32,34 @@ public class VentasView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
         grid.setItems(servicioService.findAll());
-        grid.removeAllColumns(); // Eliminar todas las columnas generadas automáticamente
+        grid.removeAllColumns(); 
         grid.addColumn(Servicio::getName).setHeader("Name");
         grid.addColumn(Servicio::getPrecio).setHeader("Precio");
+
+        grid.addComponentColumn(servicio -> {
+            Button deleteButton = new Button("Eliminar");
+            deleteButton.addClickListener(e -> {
+                servicioService.deleteServicio(servicio);
+                grid.setItems(servicioService.findAll());
+            });
+        
+            VerticalLayout buttonLayout = new VerticalLayout(deleteButton);
+            buttonLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+        
+            return buttonLayout;
+        }).setHeader("Acciones");
+
+         Button editButton = new Button("Crear nuevo servicio");
+            editButton.addClickListener(e -> {
+                UI.getCurrent().navigate("/creaservicio");
+            });
+
+        
 
         add(welcomeText);
         add(welcomeText2);
         add(grid);
+        add(editButton);
 
     }
 }

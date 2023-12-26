@@ -2,7 +2,6 @@ package es.uca.iw.domain;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "servicio")
@@ -12,7 +11,6 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotEmpty
     private float precio;
 
     private String name;
