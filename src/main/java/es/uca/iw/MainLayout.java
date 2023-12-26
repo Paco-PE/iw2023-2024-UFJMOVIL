@@ -2,6 +2,8 @@ package es.uca.iw;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Header;
@@ -9,7 +11,10 @@ import com.vaadin.flow.component.html.ListItem;
 import com.vaadin.flow.component.html.Nav;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.html.UnorderedList;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
 import com.vaadin.flow.theme.lumo.LumoUtility.BoxSizing;
 import com.vaadin.flow.theme.lumo.LumoUtility.Display;
@@ -26,7 +31,11 @@ import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import com.vaadin.flow.theme.lumo.LumoUtility.Whitespace;
 import com.vaadin.flow.theme.lumo.LumoUtility.Width;
 
+import es.uca.iw.domain.User;
+import es.uca.iw.security.AuthenticatedUser;
 import es.uca.iw.views.*;
+
+import java.util.Optional;
 
 import org.vaadin.lineawesome.LineAwesomeIcon;
 
@@ -34,6 +43,8 @@ import org.vaadin.lineawesome.LineAwesomeIcon;
  * The main view is a top-level placeholder for other views.
  */
 public class MainLayout extends AppLayout {
+
+    private AuthenticatedUser authenticatedUser;
 
     /**
      * A simple navigation item component, based on ListItem element.
@@ -67,7 +78,8 @@ public class MainLayout extends AppLayout {
 
     }
 
-    public MainLayout() {
+    public MainLayout(AuthenticatedUser authenticatedUser) {
+        this.authenticatedUser = authenticatedUser;
         addToNavbar(createHeaderContent());
         setDrawerOpened(false);
     }
@@ -96,7 +108,33 @@ public class MainLayout extends AppLayout {
 
         }
 
+        Optional<User> maybeUser = authenticatedUser.get();
+        if (maybeUser.isPresent()) {
+            User user = maybeUser.get();
+
+            MenuBar userMenu = new MenuBar();
+            userMenu.setThemeName("tertiary-inline contrast");
+
+            MenuItem userName = userMenu.addItem("");
+            Div div = new Div();
+            div.add(user.getUsername());
+            div.add(new Icon("lumo", "dropdown"));
+            div.getElement().getStyle().set("display", "flex");
+            div.getElement().getStyle().set("align-items", "center");
+            div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
+            userName.add(div);
+            userName.getSubMenu().addItem("Sign out", e -> {
+                authenticatedUser.logout();
+            });
+
+            layout.add(userMenu);
+        } else {
+            Anchor loginLink = new Anchor("/user/login", "Iniciar Sesión");
+            layout.add(loginLink);
+        }
+
         header.add(layout, nav);
+        
         return header;
     }
 

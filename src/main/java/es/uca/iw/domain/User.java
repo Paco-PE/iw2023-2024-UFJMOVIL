@@ -1,20 +1,16 @@
 package es.uca.iw.domain;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
-
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "appuser")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+public class User extends AbstractEntity{
 
     @NotEmpty
     @Column(unique = true)
@@ -26,11 +22,25 @@ public class User {
     private String email;
 
     @NotEmpty
-    private String password;
+    private String hashedPassword;
 
-    private boolean active = true;
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
 
-    private String registerCode = "";
+    /*
+    @Lob
+    @Column(length = 1000000)
+    private byte[] profilePicture;
+    */
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getEmail() {
         return email;
@@ -40,65 +50,31 @@ public class User {
         this.email = email;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
-
-    public String getPassword() {
-        return password;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public UUID getId() {
-        return id;
+    /*
+    public byte[] getProfilePicture() {
+        return profilePicture;
     }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
     }
-
-    @Override
-    public int hashCode() {
-        if (id != null) {
-            return id.hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof User other)) {
-            return false; // null or other class
-        }
-
-        if (id != null) {
-            return id.equals(other.id);
-        }
-        return super.equals(other);
-    }
-
-    public String getRegisterCode() {
-        return registerCode;
-    }
-
-    public void setRegisterCode(String registerCode) {
-        this.registerCode = registerCode;
-    }
-
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    */
 }

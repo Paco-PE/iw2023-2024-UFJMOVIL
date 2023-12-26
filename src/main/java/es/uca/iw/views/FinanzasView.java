@@ -30,7 +30,7 @@ public class FinanzasView extends VerticalLayout {
         add(title);
 
         Grid<Cliente> grid = new Grid<>(Cliente.class);
-            grid.setColumns("id", "username", "email");
+            grid.setColumns("username", "email");
             grid.setItems(clienteService.findAll());
 
            grid.addComponentColumn(cliente -> {

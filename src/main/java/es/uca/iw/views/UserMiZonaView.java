@@ -23,10 +23,11 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Mi Zona")
 @Route(value = "mi-zona", layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("CLIENTE")
 @Uses(Icon.class)
 public class UserMiZonaView extends Composite<VerticalLayout> {
 
