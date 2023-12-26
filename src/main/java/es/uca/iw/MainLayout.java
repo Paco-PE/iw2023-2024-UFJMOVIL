@@ -15,6 +15,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
 import com.vaadin.flow.theme.lumo.LumoUtility.BoxSizing;
 import com.vaadin.flow.theme.lumo.LumoUtility.Display;
@@ -35,6 +36,8 @@ import es.uca.iw.domain.User;
 import es.uca.iw.security.AuthenticatedUser;
 import es.uca.iw.views.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.vaadin.lineawesome.LineAwesomeIcon;
@@ -45,6 +48,7 @@ import org.vaadin.lineawesome.LineAwesomeIcon;
 public class MainLayout extends AppLayout {
 
     private AuthenticatedUser authenticatedUser;
+    private AccessAnnotationChecker accessChecker;
 
     /**
      * A simple navigation item component, based on ListItem element.
@@ -78,8 +82,9 @@ public class MainLayout extends AppLayout {
 
     }
 
-    public MainLayout(AuthenticatedUser authenticatedUser) {
+    public MainLayout(AuthenticatedUser authenticatedUser, AccessAnnotationChecker accessChecker) {
         this.authenticatedUser = authenticatedUser;
+        this.accessChecker = accessChecker;
         addToNavbar(createHeaderContent());
         setDrawerOpened(false);
     }
@@ -139,17 +144,40 @@ public class MainLayout extends AppLayout {
     }
 
     private MenuItemInfo[] createMenuItems() {
-        return new MenuItemInfo[]{
-                new MenuItemInfo("Inicio", LineAwesomeIcon.GLOBE_SOLID.create(), InicioView.class),
-                new MenuItemInfo("Registro de Usuario", LineAwesomeIcon.GLOBE_SOLID.create(), UserRegistrationView.class), //
-                new MenuItemInfo("Login", LineAwesomeIcon.GLOBE_SOLID.create(), UserLoginView.class),
-                new MenuItemInfo("Mi zona", LineAwesomeIcon.GLOBE_SOLID.create(), UserMiZonaView.class),
-                new MenuItemInfo("Finanzas", LineAwesomeIcon.GLOBE_SOLID.create(), FinanzasView.class),
-                new MenuItemInfo("Atención Cliente", LineAwesomeIcon.GLOBE_SOLID.create(), AtencionClienteView.class),
-                new MenuItemInfo("Ventas", LineAwesomeIcon.GLOBE_SOLID.create(), VentasView.class),
-                new MenuItemInfo("Contesta Consulta", LineAwesomeIcon.GLOBE_SOLID.create(), ContestaConsultaView.class),
-                new MenuItemInfo("Añadir servicio", LineAwesomeIcon.GLOBE_SOLID.create(), CreaServicioView.class),
-        };
+        List<MenuItemInfo> menuItems = new ArrayList<>();
+    
+        if (accessChecker.hasAccess(InicioView.class)) {
+            menuItems.add(new MenuItemInfo("Inicio", LineAwesomeIcon.GLOBE_SOLID.create(), InicioView.class));
+        }
+        if (accessChecker.hasAccess(UserRegistrationView.class)) {
+            menuItems.add(new MenuItemInfo("Registro de Usuario", LineAwesomeIcon.GLOBE_SOLID.create(), UserRegistrationView.class));
+        }
+        if (accessChecker.hasAccess(AdminRegistrationView.class)) {
+            menuItems.add(new MenuItemInfo("Registro de Usuario Admin", LineAwesomeIcon.GLOBE_SOLID.create(), AdminRegistrationView.class));
+        }
+        if (accessChecker.hasAccess(UserLoginView.class)) {
+            menuItems.add(new MenuItemInfo("Login", LineAwesomeIcon.GLOBE_SOLID.create(), UserLoginView.class));
+        }
+        if (accessChecker.hasAccess(UserMiZonaView.class)) {
+            menuItems.add(new MenuItemInfo("Mi zona", LineAwesomeIcon.GLOBE_SOLID.create(), UserMiZonaView.class));
+        }
+        if (accessChecker.hasAccess(FinanzasView.class)) {
+            menuItems.add(new MenuItemInfo("Finanzas", LineAwesomeIcon.GLOBE_SOLID.create(), FinanzasView.class));
+        }
+        if (accessChecker.hasAccess(AtencionClienteView.class)) {
+            menuItems.add(new MenuItemInfo("Atención Cliente", LineAwesomeIcon.GLOBE_SOLID.create(), AtencionClienteView.class));
+        }
+        if (accessChecker.hasAccess(VentasView.class)) {
+            menuItems.add(new MenuItemInfo("Ventas", LineAwesomeIcon.GLOBE_SOLID.create(), VentasView.class));
+        }
+        if (accessChecker.hasAccess(ContestaConsultaView.class)) {
+            menuItems.add(new MenuItemInfo("Contesta Consulta", LineAwesomeIcon.GLOBE_SOLID.create(), ContestaConsultaView.class));
+        }
+        if (accessChecker.hasAccess(CreaServicioView.class)) {
+            menuItems.add(new MenuItemInfo("Añadir servicio", LineAwesomeIcon.GLOBE_SOLID.create(), CreaServicioView.class));
+        }
+    
+        return menuItems.toArray(new MenuItemInfo[0]);
     }
 
 }

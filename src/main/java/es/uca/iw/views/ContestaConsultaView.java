@@ -10,9 +10,11 @@ import com.vaadin.flow.router.Route;
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Consulta;
 import es.uca.iw.services.ConsultaService;
+import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Contesta consulta")
 @Route(value = "/consultas", layout = MainLayout.class)
+@RolesAllowed("ADMINISTRADOR")
 public class ContestaConsultaView extends VerticalLayout{
     ConsultaService consultaService;
     private final TextField descripcion;

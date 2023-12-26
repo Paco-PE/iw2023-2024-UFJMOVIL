@@ -12,10 +12,12 @@ import com.vaadin.flow.router.Route;
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Consulta;
 import es.uca.iw.services.ConsultaService;
+import jakarta.annotation.security.RolesAllowed;
 
 
 @PageTitle("Atencion al cliente")
 @Route(value = "/atencion", layout = MainLayout.class)
+@RolesAllowed("ADMINISTRADOR")
 public class AtencionClienteView extends VerticalLayout {
     private final ConsultaService consultaService;
     private final Grid<Consulta> grid = new Grid<>(Consulta.class);

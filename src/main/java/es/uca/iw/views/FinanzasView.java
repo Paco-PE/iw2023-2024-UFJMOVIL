@@ -17,9 +17,11 @@ import es.uca.iw.domain.Cliente;
 //import es.uca.iw.services.ClienteService;
 import es.uca.iw.fakers.ClienteService;
 import es.uca.iw.services.PdfService;
+import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Finanzas")
 @Route(value = "/finanzas", layout = MainLayout.class)
+@RolesAllowed("ADMINISTRADOR")
 public class FinanzasView extends VerticalLayout {
     private ClienteService clienteService;
 

@@ -10,9 +10,11 @@ import com.vaadin.flow.router.Route;
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Servicio;
 import es.uca.iw.services.ServicioService;
+import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Crea Servicio")
 @Route(value = "/creaservicio", layout = MainLayout.class)
+@RolesAllowed("ADMINISTRADOR")
 public class CreaServicioView extends VerticalLayout{
  private final ServicioService servicioService;
     private final TextField nombreField;

@@ -14,9 +14,11 @@ import com.vaadin.flow.router.Route;
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Servicio;
 import es.uca.iw.services.ServicioService;
+import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Ventas")
 @Route(value = "/ventas", layout = MainLayout.class)
+@RolesAllowed("ADMINISTRADOR")
 public class VentasView extends VerticalLayout {
     private final ServicioService servicioService;
     private final Grid<Servicio> grid = new Grid<>(Servicio.class);
