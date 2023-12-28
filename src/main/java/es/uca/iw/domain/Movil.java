@@ -2,8 +2,20 @@ package es.uca.iw.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.stereotype.Component;
 
+@Component
+@Entity
+@Table(name = "servicio_movil")
+@DiscriminatorValue("movil") // Valor discriminador para identificar la subclase
 public class Movil extends Telefonia {
+
+    public Movil(float precio, String name, int minutosMaximos, int llamadasMaximas,
+            double datosMaximosGB, boolean roaming) {
+        super(precio, name, minutosMaximos, llamadasMaximas);
+        this.datosMaximosGB = datosMaximosGB;
+        this.roaming = roaming;
+    }
 
     private double datosMaximosGB;
     private double datosConsumidosGB; // campo calculado, cada dia se consumen x datos

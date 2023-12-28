@@ -1,11 +1,13 @@
 package es.uca.iw.domain;
 
-
 import jakarta.persistence.*;
-
+import org.springframework.stereotype.Component;
+@Component
 @Entity
 @Table(name = "servicio")
-public class Servicio {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_servicio", discriminatorType = DiscriminatorType.STRING)
+public class Servicio extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,6 +17,11 @@ public class Servicio {
 
     private String name;
 
+    public Servicio(float precio, String name) {
+        this.precio = precio;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }
@@ -23,19 +30,20 @@ public class Servicio {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public float getPrecio(){
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio){
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
+
 }
