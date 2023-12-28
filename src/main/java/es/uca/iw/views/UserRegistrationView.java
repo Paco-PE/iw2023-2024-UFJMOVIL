@@ -27,7 +27,6 @@ import java.io.Serial;
 
 @PageTitle("Registrate User")
 @Route(value = "user/registration", layout = MainLayout.class)
-@PermitAll
 @AnonymousAllowed
 public class UserRegistrationView extends VerticalLayout {
 

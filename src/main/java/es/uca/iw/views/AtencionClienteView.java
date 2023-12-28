@@ -37,6 +37,7 @@ public class AtencionClienteView extends VerticalLayout {
         grid.setItems(consultaService.findAll());
         grid.removeAllColumns(); // Eliminar todas las columnas generadas automáticamente
         grid.addColumn(Consulta::getDescripcion).setHeader("Descripción");
+        grid.addColumn(Consulta::getEmailContacto).setHeader("Email del cliente");
 
         grid.addComponentColumn(consulta -> {
             Checkbox checkbox = new Checkbox();

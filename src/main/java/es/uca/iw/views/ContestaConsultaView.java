@@ -14,30 +14,32 @@ import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Contesta consulta")
 @Route(value = "/consultas", layout = MainLayout.class)
-@RolesAllowed("ADMINISTRADOR")
+@RolesAllowed("CLIENTE")
 public class ContestaConsultaView extends VerticalLayout{
     ConsultaService consultaService;
     private final TextField descripcion;
+    private final TextField emailcontacto;
     private final Button guardarBoton;
 
     public ContestaConsultaView(ConsultaService consultaService){
         this.consultaService = consultaService;
         descripcion = new TextField("Describe la consulta:");
         descripcion.setId("username");
-        descripcion.setWidth("600px"); // Set a large width
-        descripcion.setHeight("100px");
+        descripcion.setWidth("600px"); 
+        emailcontacto = new TextField("Email de contacto:");
+        emailcontacto.setId("emailContacto");
         add(descripcion);
+        add(emailcontacto);
 
        guardarBoton = new Button("Guardar");
         guardarBoton.addClickListener(e -> {
-            // Get the user-provided description
             String descripcionUsuario = descripcion.getValue();
+            String emailContactoUsuario = emailcontacto.getValue();
 
-            // Create a new Consulta object
             Consulta consulta = new Consulta();
             consulta.setDescripcion(descripcionUsuario);
+            consulta.setEmailContacto(emailContactoUsuario);
 
-            // Save the consulta with the user-provided description
             consultaService.createConsulta(consulta);
 
             Notification notification = new Notification("Consulta guardada correctamente");
@@ -45,6 +47,7 @@ public class ContestaConsultaView extends VerticalLayout{
             notification.setDuration(3000);
             notification.open();
             descripcion.clear();
+            emailcontacto.clear();
         });
         add(guardarBoton);
     }

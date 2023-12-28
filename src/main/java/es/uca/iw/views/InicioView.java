@@ -50,7 +50,7 @@ public class InicioView extends VerticalLayout{
         });
 
         registerButton.addClickListener(event -> {
-            UI.getCurrent().navigate("user/register");
+            UI.getCurrent().navigate("user/registration");
         });
 
     }

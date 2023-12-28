@@ -14,6 +14,8 @@ public class Consulta {
 
     private boolean resuelta;
 
+    private String emailcontacto;
+
     public long getId() {
         return id;
     }
@@ -36,6 +38,14 @@ public class Consulta {
 
     public void setResuelta(boolean resuelta){
         this.resuelta = resuelta;
+    }
+
+    public String getEmailContacto(){
+        return emailcontacto;
+    }
+
+    public void setEmailContacto(String emailcontacto){
+        this.emailcontacto = emailcontacto;
     }
 
 }
