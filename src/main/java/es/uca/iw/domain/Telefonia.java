@@ -1,12 +1,7 @@
 package es.uca.iw.domain;
-import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.List;
-
-@Component
-@Entity
-@Table(name = "servicio_telefonia")
-@DiscriminatorValue("telefonia") // Valor discriminador para identificar la subclase
 
 public class Telefonia extends Servicio {
 
@@ -16,12 +11,6 @@ public class Telefonia extends Servicio {
     private int nLlamadasRealizadas; // atributo derivado y calculado
     private HashSet<Llamada> llamadasRealizadas;
     private List<String> numerosBloqueados;
-
-    public Telefonia(float precio, String name, int minutosMaximos, int llamadasMaximas) {
-        super(precio, name);
-        this.minutosMaximos = minutosMaximos;
-        this.llamadasMaximas = llamadasMaximas;
-    }
 
     public int getMinutosMaximos() {
         return minutosMaximos;
