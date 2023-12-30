@@ -37,6 +37,7 @@ public class VentasView extends VerticalLayout {
         grid.removeAllColumns(); 
         grid.addColumn(Servicio::getName).setHeader("Name");
         grid.addColumn(Servicio::getPrecio).setHeader("Precio");
+        grid.addColumn(Servicio::getTipoServicio).setHeader("Tipo");
 
         grid.addComponentColumn(servicio -> {
             Button deleteButton = new Button("Eliminar");

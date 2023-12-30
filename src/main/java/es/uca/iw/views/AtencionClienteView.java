@@ -62,6 +62,7 @@ public class AtencionClienteView extends VerticalLayout {
         grid2.removeAllColumns();
         grid2.addColumn(Contrato::getFechaInicio).setHeader("Fecha inicio");
         grid2.addColumn(Contrato::getFechaFin).setHeader("Fecha fin");
+        grid2.addColumn(Contrato::getCosteMensual).setHeader("Coste mensual");
        
         add(welcomeText);
         add(welcomeText2);

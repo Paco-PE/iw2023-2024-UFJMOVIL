@@ -13,6 +13,7 @@ public class Contrato {
 
     private Date fechaInicio;
     private Date fechaFin;
+    private float costemensual;
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -36,5 +37,13 @@ public class Contrato {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public float getCosteMensual(){
+        return costemensual;
+    }
+
+    public void setCosteMensual(Float costemensual){
+        this.costemensual = costemensual;
     }
 }

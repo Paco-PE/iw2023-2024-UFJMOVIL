@@ -15,6 +15,8 @@ public class Servicio {
 
     private String name;
 
+    private String tiposervicio;
+
     public long getId() {
         return id;
     }
@@ -37,5 +39,13 @@ public class Servicio {
 
     public void setPrecio(float precio){
         this.precio = precio;
+    }
+
+    public String getTipoServicio(){
+        return tiposervicio;
+    }
+
+    public void setTipoServicio(String tipoServicio){
+        this.tiposervicio = tipoServicio;
     }
 }

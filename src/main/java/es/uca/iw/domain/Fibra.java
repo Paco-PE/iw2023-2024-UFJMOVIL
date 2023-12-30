@@ -1,5 +1,10 @@
 package es.uca.iw.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "fibra")
 public class Fibra extends Servicio {
     private int velocidadContratadaMb;
 
