@@ -9,7 +9,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import es.uca.iw.MainLayout;
+import es.uca.iw.domain.Fibra;
 import es.uca.iw.domain.Servicio;
+import es.uca.iw.services.FibraService;
 import es.uca.iw.services.ServicioService;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -17,24 +19,34 @@ import jakarta.annotation.security.RolesAllowed;
 @Route(value = "/creaservicio", layout = MainLayout.class)
 @RolesAllowed("ADMINISTRADOR")
 public class CreaServicioView extends VerticalLayout{
- private final ServicioService servicioService;
+    private final ServicioService servicioService;
+    private final FibraService fibraService;
     private final TextField nombreField;
     private final TextField precioField;
     private final ComboBox<String> tipoServicioComboBox;
+    private final TextField velocidadContratadaField;
     private final Button guardarButton;
 
-    public CreaServicioView(ServicioService servicioService) {
+    public CreaServicioView(ServicioService servicioService, FibraService fibraService) {
         this.servicioService = servicioService;
+        this.fibraService = fibraService;
 
         nombreField = new TextField("Nombre del Servicio");
         precioField = new TextField("Precio del Servicio");
         tipoServicioComboBox = new ComboBox<>("Tipo de Servicio");
         tipoServicioComboBox.setItems("Fibra", "Telefonía");
+        velocidadContratadaField = new TextField("Velocidad contratada (mb)");
+        velocidadContratadaField.setVisible(false);
 
         guardarButton = new Button("Guardar Servicio");
         guardarButton.addClickListener(e -> guardarServicio());
 
-        add(nombreField, precioField,tipoServicioComboBox, guardarButton);
+         tipoServicioComboBox.addValueChangeListener(event -> {
+            String selectedTipoServicio = event.getValue();
+            velocidadContratadaField.setVisible("Fibra".equals(selectedTipoServicio));
+        });
+
+        add(nombreField, precioField,tipoServicioComboBox,velocidadContratadaField, guardarButton);
     }
 
     private void guardarServicio() {
@@ -43,9 +55,13 @@ public class CreaServicioView extends VerticalLayout{
         String tipoServicio = tipoServicioComboBox.getValue();
 
         Servicio nuevoServicio = new Servicio();
+        Fibra nuevaFibra = new Fibra();
         nuevoServicio.setName(nombreServicio);
         nuevoServicio.setPrecio(precioServicio);
         nuevoServicio.setTipoServicio(tipoServicio);
+        if ("Fibra".equals(tipoServicio)) {
+            nuevaFibra.setVelocidadContratadaMb(Float.parseFloat(velocidadContratadaField.getValue()));
+        }
         servicioService.SaveServicio(nuevoServicio);
         Notification notification = new Notification("Servicio guardado correctamente");
         notification.setPosition(Notification.Position.TOP_CENTER);
@@ -53,5 +69,6 @@ public class CreaServicioView extends VerticalLayout{
         notification.open();
         nombreField.clear();
         precioField.clear();
+        velocidadContratadaField.clear();
     }
 }

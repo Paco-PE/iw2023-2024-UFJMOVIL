@@ -6,13 +6,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "fibra")
 public class Fibra extends Servicio {
-    private int velocidadContratadaMb;
+    private float velocidadContratadaMb;
 
-    public int getVelocidadContratadaMb() {
+    public float getVelocidadContratadaMb() {
         return velocidadContratadaMb;
     }
 
-    public void setVelocidadContratadaMb(int velocidadContratadaMb) {
+    public void setVelocidadContratadaMb(float velocidadContratadaMb) {
         this.velocidadContratadaMb = velocidadContratadaMb;
     }
 }
