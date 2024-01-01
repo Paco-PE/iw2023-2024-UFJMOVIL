@@ -3,13 +3,28 @@ package es.uca.iw.domain;
 import java.util.HashSet;
 import java.util.List;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+import org.springframework.stereotype.Component;
+
+@Component
+@Entity
+@Table(name = "servicio_telefonia")
+@DiscriminatorValue("telefonia") // Valor discriminador para identificar la subclase
 public class Telefonia extends Servicio {
 
     private int minutosMaximos;
     private int minutosConsumidos; // atributo derivado y calculado
     private int llamadasMaximas;
     private int nLlamadasRealizadas; // atributo derivado y calculado
+
+    // En la clase Telefonia
+    @OneToMany(mappedBy = "servicioTelefonia")
     private HashSet<Llamada> llamadasRealizadas;
+
     private List<String> numerosBloqueados;
 
     public int getMinutosMaximos() {

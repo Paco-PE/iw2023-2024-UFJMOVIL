@@ -1,7 +1,16 @@
 package es.uca.iw.domain;
+import org.springframework.stereotype.Component;
+
+import jakarta.persistence.*;
+
 
 import java.util.HashSet;
 import java.util.Set;
+
+@Component
+@Entity
+@Table(name = "servicio_movil")
+@DiscriminatorValue("movil")
 
 public class Movil extends Telefonia {
 

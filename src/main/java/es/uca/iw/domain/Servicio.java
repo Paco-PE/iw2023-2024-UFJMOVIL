@@ -1,15 +1,27 @@
 package es.uca.iw.domain;
+import org.springframework.stereotype.Component;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.Table;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.DiscriminatorType;
 
-import jakarta.persistence.*;
-
+@Component
 @Entity
-@Table(name = "servicio")
+@Table(name = "servicio") // Tabla única para todas las clases de la jerarquía
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_servicio", discriminatorType = DiscriminatorType.STRING)
+
 public class Servicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private float precio;
 
