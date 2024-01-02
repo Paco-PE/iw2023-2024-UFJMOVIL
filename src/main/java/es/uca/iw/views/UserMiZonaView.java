@@ -1,6 +1,15 @@
 package es.uca.iw.views;
 
 import es.uca.iw.MainLayout;
+import es.uca.iw.domain.Cliente;
+import es.uca.iw.domain.User;
+import es.uca.iw.security.AuthenticatedUser;
+import es.uca.iw.services.PdfService;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.Optional;
+
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.HasValue.ValueChangeListener;
@@ -13,6 +22,7 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
@@ -21,6 +31,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
@@ -31,9 +42,11 @@ import jakarta.annotation.security.RolesAllowed;
 @Uses(Icon.class)
 public class UserMiZonaView extends Composite<VerticalLayout> {
 
+    private AuthenticatedUser authenticatedUser;
     private Button ContactaButton = new Button("Contacta con nosotros");
 
-    public UserMiZonaView() {
+    public UserMiZonaView(AuthenticatedUser authenticatedUser) {
+        this.authenticatedUser = authenticatedUser;
         H2 txtServiciosOfertados = new H2();
         HorizontalLayout layoutRow = new HorizontalLayout();
         VerticalLayout layoutColumn2 = new VerticalLayout();
@@ -574,14 +587,25 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         getContent().add(h317);
         getContent().add(ContactaButton);
         getContent().add(buttonPrimary);
+
+        Optional<User> maybeCliente = this.authenticatedUser.get();
+        if (maybeCliente.isPresent()) {
+            User cliente = maybeCliente.get();
+            StreamResource pdfResource = PdfService.generarFactura(cliente);
+            com.vaadin.flow.component.html.Anchor downloadLink = new com.vaadin.flow.component.html.Anchor(pdfResource, "Generar Factura");
+            downloadLink.setTarget("_blank");
+            getContent().setAlignSelf(FlexComponent.Alignment.CENTER, downloadLink);
+            getContent().add(downloadLink);
+        }
+
         getContent().add(hr);
         getContent().add(h25);
         getContent().add(hr2);
         getContent().add(h26);
 
         ContactaButton.addClickListener(event -> {
-        UI.getCurrent().navigate("/consultas");
-    });
+            UI.getCurrent().navigate("/consultas");
+        });
        
     }
 }

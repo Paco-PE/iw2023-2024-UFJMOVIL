@@ -4,6 +4,11 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.vaadin.flow.server.StreamResource;
+
+import es.uca.iw.domain.User;
+
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import java.io.FileNotFoundException;
@@ -20,5 +25,14 @@ public class PdfService {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+    }
+
+    public static StreamResource generarFactura(User cliente) {
+        ByteArrayOutputStream pdfContent = new ByteArrayOutputStream();
+        createPdf("Factura para el cliente:\n\n" +
+        "Nombre de usuario: " + cliente.getUsername() + "\n" +
+        "Correo electrónico: " + cliente.getEmail() + "\n\n" +
+        "Gracias por su negocio.", pdfContent);
+        return new StreamResource(cliente.getId() + ".pdf", () -> new ByteArrayInputStream(pdfContent.toByteArray()));
     }
 }

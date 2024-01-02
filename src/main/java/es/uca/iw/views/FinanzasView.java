@@ -35,13 +35,8 @@ public class FinanzasView extends VerticalLayout {
             grid.setColumns("username", "email");
             grid.setItems(clienteService.findAll());
 
-           grid.addComponentColumn(cliente -> {
-                ByteArrayOutputStream pdfContent = new ByteArrayOutputStream();
-                PdfService.createPdf("Factura para el cliente:\n\n" +
-                "Nombre de usuario: " + cliente.getUsername() + "\n" +
-                "Correo electrónico: " + cliente.getEmail() + "\n\n" +
-                "Gracias por su negocio.", pdfContent);
-                StreamResource pdfResource = new StreamResource(cliente.getId() + ".pdf", () -> new ByteArrayInputStream(pdfContent.toByteArray()));
+            grid.addComponentColumn(cliente -> {
+                StreamResource pdfResource = PdfService.generarFactura(cliente);
                 com.vaadin.flow.component.html.Anchor downloadLink = new com.vaadin.flow.component.html.Anchor(pdfResource, "Generar Factura");
                 downloadLink.setTarget("_blank");
                 return downloadLink;

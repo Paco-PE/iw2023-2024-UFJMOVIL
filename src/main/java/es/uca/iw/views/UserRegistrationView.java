@@ -89,7 +89,6 @@ public class UserRegistrationView extends VerticalLayout {
      * Handler
      */
     public void onRegisterButtonClick() {
-
         if (binder.validate().isOk() & hashedPassword.getValue().equals(password2.getValue())) {
             if (service.registerUser(binder.getBean(), Role.CLIENTE)) { // Por ahora solo registramos clientes
                 status.setText("Enhorabuena, ya formas parte de nuestra familia");
