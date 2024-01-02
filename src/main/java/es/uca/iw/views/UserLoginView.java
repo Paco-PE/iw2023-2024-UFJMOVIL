@@ -32,6 +32,7 @@ import es.uca.iw.domain.Role;
 public class UserLoginView extends LoginOverlay implements BeforeEnterObserver {
 
     private final AuthenticatedUser authenticatedUser;
+    private final Button registerButton = new Button("Registrarse");
 
     public UserLoginView(AuthenticatedUser authenticatedUser) {
         this.authenticatedUser = authenticatedUser;

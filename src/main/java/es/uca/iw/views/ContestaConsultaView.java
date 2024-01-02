@@ -14,7 +14,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Contesta consulta")
 @Route(value = "/consultas", layout = MainLayout.class)
-@RolesAllowed("CLIENTE")
+@RolesAllowed({"CLIENTE", "ADMINISTRADOR"})
 public class ContestaConsultaView extends VerticalLayout{
     ConsultaService consultaService;
     private final TextField descripcion;

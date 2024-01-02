@@ -23,9 +23,6 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 @AnonymousAllowed
 public class InicioView extends VerticalLayout{
-    
-    private Button loginButton = new Button("Iniciar sesión");
-    private Button registerButton = new Button("Registrarse");
 
     public InicioView(){
 
@@ -34,24 +31,11 @@ public class InicioView extends VerticalLayout{
 
         VerticalLayout layoutcolumn = new VerticalLayout();
         layoutcolumn.setWidthFull();
-        layoutcolumn.setAlignSelf(FlexComponent.Alignment.END, loginButton);
-        layoutcolumn.setAlignSelf(FlexComponent.Alignment.END, registerButton);
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText);
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
-        
-        
-        add(loginButton);
-        add(registerButton);
+
         add(welcomeText);
         add(welcomeText2);
-
-        loginButton.addClickListener(event -> {
-            UI.getCurrent().navigate("user/login");
-        });
-
-        registerButton.addClickListener(event -> {
-            UI.getCurrent().navigate("user/registration");
-        });
 
     }
 }

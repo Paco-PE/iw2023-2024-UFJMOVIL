@@ -13,6 +13,7 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
@@ -128,14 +129,17 @@ public class MainLayout extends AppLayout {
             div.getElement().getStyle().set("align-items", "center");
             div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
             userName.add(div);
-            userName.getSubMenu().addItem("Sign out", e -> {
+            userName.getSubMenu().addItem("Cerrar sesión", e -> {
                 authenticatedUser.logout();
             });
 
             layout.add(userMenu);
         } else {
+            Anchor registerLink = new Anchor("/user/registration", "Regístrate");
             Anchor loginLink = new Anchor("/user/login", "Iniciar Sesión");
-            layout.add(loginLink);
+            Div spacer = new Div();
+            spacer.setWidth("1em");
+            layout.add(registerLink, spacer, loginLink);
         }
 
         header.add(layout, nav);
@@ -149,14 +153,8 @@ public class MainLayout extends AppLayout {
         if (accessChecker.hasAccess(InicioView.class)) {
             menuItems.add(new MenuItemInfo("Inicio", LineAwesomeIcon.GLOBE_SOLID.create(), InicioView.class));
         }
-        if (accessChecker.hasAccess(UserRegistrationView.class)) {
-            menuItems.add(new MenuItemInfo("Registro de Usuario", LineAwesomeIcon.GLOBE_SOLID.create(), UserRegistrationView.class));
-        }
         if (accessChecker.hasAccess(AdminRegistrationView.class)) {
             menuItems.add(new MenuItemInfo("Registro de Usuario Admin", LineAwesomeIcon.GLOBE_SOLID.create(), AdminRegistrationView.class));
-        }
-        if (accessChecker.hasAccess(UserLoginView.class)) {
-            menuItems.add(new MenuItemInfo("Login", LineAwesomeIcon.GLOBE_SOLID.create(), UserLoginView.class));
         }
         if (accessChecker.hasAccess(UserMiZonaView.class)) {
             menuItems.add(new MenuItemInfo("Mi zona", LineAwesomeIcon.GLOBE_SOLID.create(), UserMiZonaView.class));
