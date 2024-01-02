@@ -54,8 +54,10 @@ public class AdminRegistrationView extends VerticalLayout {
     public AdminRegistrationView(UserDetailsServiceImpl service) {
         this.service = service;
 
-        title = new H1("Registrate");
-        Html textobienvenida = new Html ("<h4>Bienvenido a UFJMOVIL, por favor registrate</h4>");
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setAlignItems(Alignment.CENTER);
+
+        title = new H1("Registro de usuarios");
 
         username = new TextField("Nombre de usuario:");
         username.setId("username");
@@ -67,10 +69,10 @@ public class AdminRegistrationView extends VerticalLayout {
         roleComboBox.setId("role");
         roleComboBox.setItems(Role.values());
 
-        hashedPassword = new PasswordField("Password");
+        hashedPassword = new PasswordField("Contraseña");
         hashedPassword.setId("password");
 
-        password2 = new PasswordField("Repite Password");
+        password2 = new PasswordField("Repite Contraseña");
         password2.setId("password2");
 
         register = new Button("Registrarse");
@@ -82,7 +84,7 @@ public class AdminRegistrationView extends VerticalLayout {
 
         setMargin(true);
 
-        add(title,textobienvenida, username, email, roleComboBox, hashedPassword, password2, register, status);
+        add(title, username, email, roleComboBox, hashedPassword, password2, register, status);
 
         register.addClickListener(e -> onRegisterButtonClick());
 

@@ -22,7 +22,6 @@ import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import es.uca.iw.security.AuthenticatedUser;
-import jakarta.annotation.security.PermitAll;
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Role;
 
@@ -32,16 +31,20 @@ import es.uca.iw.domain.Role;
 public class UserLoginView extends LoginOverlay implements BeforeEnterObserver {
 
     private final AuthenticatedUser authenticatedUser;
-    private final Button registerButton = new Button("Registrarse");
 
     public UserLoginView(AuthenticatedUser authenticatedUser) {
         this.authenticatedUser = authenticatedUser;
         setAction(RouteUtil.getRoutePath(VaadinService.getCurrent().getContext(), getClass()));
-
+    
         LoginI18n i18n = LoginI18n.createDefault();
         i18n.setHeader(new LoginI18n.Header());
         i18n.getHeader().setTitle("UFJMOVIL");
         i18n.setAdditionalInformation(null);
+        i18n.setForm(new LoginI18n.Form());
+        i18n.getForm().setTitle("Iniciar sesión");
+        i18n.getForm().setUsername("Usuario");
+        i18n.getForm().setPassword("Contraseña");
+        i18n.getForm().setSubmit("Entrar");
         setI18n(i18n);
         
         setForgotPasswordButtonVisible(false);

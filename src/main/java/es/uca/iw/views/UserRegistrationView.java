@@ -51,6 +51,9 @@ public class UserRegistrationView extends VerticalLayout {
     public UserRegistrationView(UserDetailsServiceImpl service) {
         this.service = service;
 
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setAlignItems(Alignment.CENTER);
+
         title = new H1("Registrate");
         Html textobienvenida = new Html ("<h4>Bienvenido a UFJMOVIL, por favor registrate</h4>");
 
@@ -60,10 +63,10 @@ public class UserRegistrationView extends VerticalLayout {
         email = new EmailField("Direccion email:");
         email.setId("email");
 
-        hashedPassword = new PasswordField("Password");
+        hashedPassword = new PasswordField("Contraseña");
         hashedPassword.setId("password");
 
-        password2 = new PasswordField("Repite Password");
+        password2 = new PasswordField("Repite Contraseña");
         password2.setId("password2");
 
         register = new Button("Registrarse");
