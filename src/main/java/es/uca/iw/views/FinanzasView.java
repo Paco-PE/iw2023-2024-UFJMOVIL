@@ -15,7 +15,7 @@ import com.vaadin.flow.server.StreamResource;
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Cliente;
 //import es.uca.iw.services.ClienteService;
-import es.uca.iw.fakers.ClienteService;
+import es.uca.iw.fakers.ClienteFakeService;
 import es.uca.iw.services.PdfService;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -23,10 +23,10 @@ import jakarta.annotation.security.RolesAllowed;
 @Route(value = "/finanzas", layout = MainLayout.class)
 @RolesAllowed({"EMPLEADO_FINANCIERO", "ADMINISTRADOR"})
 public class FinanzasView extends VerticalLayout {
-    private ClienteService clienteService;
+    private ClienteFakeService clienteService;
 
     public FinanzasView(){
-        this.clienteService = new ClienteService();
+        this.clienteService = new ClienteFakeService();
 
         H2 title = new H2("Clientes");
         add(title);

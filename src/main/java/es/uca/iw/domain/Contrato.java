@@ -10,6 +10,18 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id") // Ajusta el nombre de la columna según tu esquema de base de datos
+    private Cliente cliente;
+
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     private Date fechaInicio;
     private Date fechaFin;

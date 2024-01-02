@@ -12,10 +12,10 @@ import com.github.javafaker.Faker;
 
 // Servicio falso que genera datos de prueba
 @Service
-public class ClienteService {
+public class ClienteFakeService {
     private List<Cliente> clientes;
 
-    public ClienteService() {
+    public ClienteFakeService() {
         clientes = new ArrayList<>();
         Faker faker = new Faker();
 

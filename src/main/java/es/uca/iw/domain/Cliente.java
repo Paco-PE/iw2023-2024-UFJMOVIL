@@ -1,15 +1,39 @@
 package es.uca.iw.domain;
 
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente extends User {
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contrato> contratos = new ArrayList<>();
+
+
+    public List<Contrato> getContratos() {
+        return contratos;
+    }
+
+    public void setContratos(List<Contrato> contratos) {
+        this.contratos = contratos;
+    }
+
+    public void addContrato(Contrato contrato) {
+        contratos.add(contrato);
+        contrato.setCliente(this);
+    }
+
+    public void removeContrato(Contrato contrato) {
+        contratos.remove(contrato);
+        contrato.setCliente(null);
+    }
+
     private String numeroTelefono;
-    // otros campos específicos de Cliente
-
-    // getters y setters
-
+    
     public String getNumeroTelefono() {
         return numeroTelefono;
     }
@@ -17,5 +41,4 @@ public class Cliente extends User {
     public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
-    // otros getters y setters
 }
