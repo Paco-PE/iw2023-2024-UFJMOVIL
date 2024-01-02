@@ -20,7 +20,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Atencion al cliente")
 @Route(value = "/atencion", layout = MainLayout.class)
-@RolesAllowed("ADMINISTRADOR")
+@RolesAllowed("EMPLEADO_ATENCION_CLIENTE")
 public class AtencionClienteView extends VerticalLayout {
     private final ConsultaService consultaService;
     private final ContratoService contratoService;

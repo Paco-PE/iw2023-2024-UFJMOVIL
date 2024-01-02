@@ -17,7 +17,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Crea Servicio")
 @Route(value = "/creaservicio", layout = MainLayout.class)
-@RolesAllowed("ADMINISTRADOR")
+@RolesAllowed("EMPLEADO_COMERCIAL")
 public class CreaServicioView extends VerticalLayout{
     private final ServicioService servicioService;
     private final FibraService fibraService;
