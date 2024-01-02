@@ -1,5 +1,7 @@
 package es.uca.iw.views;
 
+import java.util.Set;
+
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
@@ -22,6 +24,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.security.AuthenticatedUser;
 import jakarta.annotation.security.PermitAll;
 import es.uca.iw.MainLayout;
+import es.uca.iw.domain.Role;
 
 @PageTitle("Iniciar Sesion")
 @Route(value = "user/login", layout = MainLayout.class)
@@ -49,10 +52,20 @@ public class UserLoginView extends LoginOverlay implements BeforeEnterObserver {
         if (authenticatedUser.get().isPresent()) {
             // Already logged in
             setOpened(false);
-            event.forwardTo("/mi-zona");
+            Set<Role> userRole = authenticatedUser.get().get().getRoles();
+
+            if (userRole.contains(Role.CLIENTE)) {
+                event.forwardTo("/mi-zona");
+            } else if (userRole.contains(Role.EMPLEADO_ATENCION_CLIENTE)) {
+                event.rerouteTo("/atencion");
+            } else if (userRole.contains(Role.EMPLEADO_FINANCIERO)) {
+                event.forwardTo("/finanzas");
+            } else if (userRole.contains(Role.EMPLEADO_COMERCIAL)) {
+                event.forwardTo("/ventas");
         }
 
         setError(event.getLocation().getQueryParameters().getParameters().containsKey("error"));
     }
+}
 }
 

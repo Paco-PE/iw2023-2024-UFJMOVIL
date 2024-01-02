@@ -18,7 +18,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Ventas")
 @Route(value = "/ventas", layout = MainLayout.class)
-@RolesAllowed("ADMINISTRADOR")
+@RolesAllowed("EMPLEADO_COMERCIAL")
 public class VentasView extends VerticalLayout {
     private final ServicioService servicioService;
     private final Grid<Servicio> grid = new Grid<>(Servicio.class);
