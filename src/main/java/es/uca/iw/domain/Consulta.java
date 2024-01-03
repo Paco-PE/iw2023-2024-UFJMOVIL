@@ -1,6 +1,8 @@
 package es.uca.iw.domain;
 
 
+import java.util.UUID;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +10,7 @@ import jakarta.persistence.*;
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private UUID id;
     
     private String descripcion;
 
@@ -16,11 +18,11 @@ public class Consulta {
 
     private String emailcontacto;
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

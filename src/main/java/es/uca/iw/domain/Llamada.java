@@ -8,13 +8,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 public class Llamada {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "telefonia_id") // Ajusta el nombre de la columna según tu esquema de base de datos
@@ -34,11 +35,11 @@ public class Llamada {
         this.numero = numero;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
