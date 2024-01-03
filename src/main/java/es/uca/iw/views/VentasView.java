@@ -13,7 +13,13 @@ import com.vaadin.flow.router.Route;
 
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Servicio;
+import es.uca.iw.domain.Movil;
+import es.uca.iw.domain.Fibra;
+import es.uca.iw.domain.Telefonia;
+import es.uca.iw.services.FibraService;
+import es.uca.iw.services.MovilService;
 import es.uca.iw.services.ServicioService;
+import es.uca.iw.services.TelefoniaService;
 import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Ventas")
@@ -21,10 +27,17 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed({"EMPLEADO_COMERCIAL", "ADMINISTRADOR"})
 public class VentasView extends VerticalLayout {
     private final ServicioService servicioService;
-    private final Grid<Servicio> grid = new Grid<>(Servicio.class);
+    private final MovilService movilService;
+    private final FibraService fibraService;
+    private final TelefoniaService telefoniaService;
+    private final Grid<Fibra> grid = new Grid<>(Fibra.class);
+    
 
-    public VentasView(ServicioService servicioService){
+    public VentasView(ServicioService servicioService,FibraService fibraService, MovilService movilService, TelefoniaService telefoniaService){
         this.servicioService = servicioService;
+        this.fibraService = fibraService;
+        this.telefoniaService = telefoniaService;
+        this.movilService = movilService;
         H1 welcomeText = new H1("UFJMOVIL");
         H2 welcomeText2 = new H2("Bienvenido, departamento de ventas y marketing");
 
@@ -33,7 +46,7 @@ public class VentasView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText);
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
-        grid.setItems(servicioService.findAll());
+        grid.setItems(fibraService.findAll());
         grid.removeAllColumns(); 
         grid.addColumn(Servicio::getName).setHeader("Name");
         grid.addColumn(Servicio::getPrecio).setHeader("Precio");
@@ -43,7 +56,7 @@ public class VentasView extends VerticalLayout {
             Button deleteButton = new Button("Eliminar");
             deleteButton.addClickListener(e -> {
                 servicioService.deleteServicio(servicio);
-                grid.setItems(servicioService.findAll());
+                grid.setItems(fibraService.findAll());
             });
         
             VerticalLayout buttonLayout = new VerticalLayout(deleteButton);

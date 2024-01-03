@@ -33,7 +33,9 @@ public class CreaServicioView extends VerticalLayout{
     private final ComboBox<String> tipoServicioComboBox;
     private final TextField velocidadContratadaField;
     private final TextField minutosMaximos;
+    private final TextField minutosMaximosMovil;
     private final TextField llamadasMaximas;
+    private final TextField llamadasMaximasMovil;
     private final TextField datosMaximos;
     private final Checkbox roaming;
     private final Button guardarButton;
@@ -47,13 +49,17 @@ public class CreaServicioView extends VerticalLayout{
         nombreField = new TextField("Nombre del Servicio");
         precioField = new TextField("Precio del Servicio");
         tipoServicioComboBox = new ComboBox<>("Tipo de Servicio");
-        tipoServicioComboBox.setItems("Fibra", "Telefonía");
+        tipoServicioComboBox.setItems("Fibra", "Fijo", "Móvil");
         velocidadContratadaField = new TextField("Velocidad contratada (mb)");
         velocidadContratadaField.setVisible(false);
         minutosMaximos = new TextField("Minutos maximos permitidos");
         minutosMaximos.setVisible(false);
+        minutosMaximosMovil = new TextField("Minutos maximos permitidos");
+        minutosMaximosMovil.setVisible(false);
         llamadasMaximas = new TextField("Llamadas maximas permitidas");
         llamadasMaximas.setVisible(false);
+        llamadasMaximasMovil = new TextField("Llamadas maximas permitidas");
+        llamadasMaximasMovil.setVisible(false);
         datosMaximos = new TextField("Datos maximos permitidos");
         datosMaximos.setVisible(false);
         roaming = new Checkbox("Roaming");
@@ -65,13 +71,15 @@ public class CreaServicioView extends VerticalLayout{
          tipoServicioComboBox.addValueChangeListener(event -> {
             String selectedTipoServicio = event.getValue();
             velocidadContratadaField.setVisible("Fibra".equals(selectedTipoServicio));
-            minutosMaximos.setVisible("Telefonía".equals(selectedTipoServicio));
-            llamadasMaximas.setVisible("Telefonía".equals(selectedTipoServicio));
-            datosMaximos.setVisible("Telefonía".equals(selectedTipoServicio));
-            roaming.setVisible("Telefonía".equals(selectedTipoServicio));
+            minutosMaximos.setVisible("Fijo".equals(selectedTipoServicio));
+            minutosMaximosMovil.setVisible("Móvil".equals(selectedTipoServicio));
+            llamadasMaximas.setVisible("Fijo".equals(selectedTipoServicio));
+            llamadasMaximasMovil.setVisible("Móvil".equals(selectedTipoServicio));
+            datosMaximos.setVisible("Móvil".equals(selectedTipoServicio));
+            roaming.setVisible("Móvil".equals(selectedTipoServicio));
         });
 
-        add(nombreField, precioField,tipoServicioComboBox,velocidadContratadaField,minutosMaximos,llamadasMaximas,datosMaximos,roaming, guardarButton);
+        add(nombreField, precioField,tipoServicioComboBox,velocidadContratadaField,minutosMaximos,minutosMaximosMovil,llamadasMaximas,llamadasMaximasMovil,datosMaximos,roaming, guardarButton);
     }
 
     private void guardarServicio() {
@@ -80,23 +88,36 @@ public class CreaServicioView extends VerticalLayout{
         String tipoServicio = tipoServicioComboBox.getValue();
 
         Servicio nuevoServicio = new Servicio();
-        nuevoServicio.setName(nombreServicio);
-        nuevoServicio.setPrecio(precioServicio);
-        nuevoServicio.setTipoServicio(tipoServicio);
         if ("Fibra".equals(tipoServicio)) {
             Fibra nuevaFibra = new Fibra();
+            nuevaFibra.setName(nombreServicio);
+            nuevaFibra.setPrecio(precioServicio);
+            nuevaFibra.setTipoServicio(tipoServicio);
             nuevaFibra.setVelocidadContratadaMb(Float.parseFloat(velocidadContratadaField.getValue()));
+            fibraService.SaveFibra(nuevaFibra);
         }
-        if ("Telefonía".equals(tipoServicio)){
+        if ("Fijo".equals(tipoServicio)){
             Telefonia nuevaTelefonia = new Telefonia();
-            Movil nuevMovil = new Movil();
+            nuevaTelefonia.setName(nombreServicio);
+            nuevaTelefonia.setPrecio(precioServicio);
+            nuevaTelefonia.setTipoServicio(tipoServicio);
             nuevaTelefonia.setMinutosMaximos(Integer.parseInt(minutosMaximos.getValue()));
             nuevaTelefonia.setLlamadasMaximas(Integer.parseInt(llamadasMaximas.getValue()));
-            nuevMovil.setDatosMaximosGB(Integer.parseInt(datosMaximos.getValue()));
-            nuevMovil.setRoaming(roaming.getValue());
+            telefoniaService.SaveTelefonia(nuevaTelefonia);
             
         }
-        servicioService.SaveServicio(nuevoServicio);
+        if ("Móvil".equals(tipoServicio)){
+            Movil nuevoMovil = new Movil();
+            nuevoMovil.setName(nombreServicio);
+            nuevoMovil.setPrecio(precioServicio);
+            nuevoMovil.setTipoServicio(tipoServicio);
+            nuevoMovil.setMinutosMaximos(Integer.parseInt(minutosMaximosMovil.getValue()));
+            nuevoMovil.setLlamadasMaximas(Integer.parseInt(llamadasMaximasMovil.getValue()));
+            nuevoMovil.setDatosMaximosGB(Integer.parseInt(datosMaximos.getValue()));
+            nuevoMovil.setRoaming(roaming.getValue());
+            movilService.SaveMovil(nuevoMovil);
+            
+        }
         Notification notification = new Notification("Servicio guardado correctamente");
         notification.setPosition(Notification.Position.TOP_CENTER);
         notification.setDuration(3000);
@@ -105,7 +126,9 @@ public class CreaServicioView extends VerticalLayout{
         precioField.clear();
         velocidadContratadaField.clear();
         minutosMaximos.clear();
+        minutosMaximosMovil.clear();
         llamadasMaximas.clear();
+        llamadasMaximasMovil.clear();
         datosMaximos.clear();
         roaming.clear();
     }

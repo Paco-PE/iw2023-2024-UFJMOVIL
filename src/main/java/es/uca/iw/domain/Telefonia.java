@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Table(name = "servicio_telefonia")
 @DiscriminatorValue("telefonia") // Valor discriminador para identificar la subclase
 public class Telefonia extends Servicio {
-
+    
     private int minutosMaximos;
     private int minutosConsumidos; // atributo derivado y calculado
     private int llamadasMaximas;
@@ -97,4 +97,5 @@ public class Telefonia extends Servicio {
     public void setTipoMovil(String tipoMovil){
         this.tipomovil = tipoMovil;
     }
+
 }
