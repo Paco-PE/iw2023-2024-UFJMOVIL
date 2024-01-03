@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import org.hibernate.collection.spi.PersistentSet;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,7 +25,7 @@ public class Telefonia extends Servicio {
 
     // En la clase Telefonia
     @OneToMany(mappedBy = "servicioTelefonia")
-    private HashSet<Llamada> llamadasRealizadas;
+    private PersistentSet<Llamada> llamadasRealizadas;
 
     private List<String> numerosBloqueados;
 
@@ -64,11 +65,11 @@ public class Telefonia extends Servicio {
         this.nLlamadasRealizadas = llamadasRealizadas.size();
     }
 
-    public HashSet<Llamada> getLlamadasRealizadas() {
+    public PersistentSet<Llamada> getLlamadasRealizadas() {
         return llamadasRealizadas;
     }
 
-    public void setLlamadasRealizadas(HashSet<Llamada> llamadasRealizadas) {
+    public void setLlamadasRealizadas(PersistentSet<Llamada> llamadasRealizadas) {
         this.llamadasRealizadas = llamadasRealizadas;
     }
 

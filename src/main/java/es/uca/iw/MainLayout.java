@@ -169,7 +169,7 @@ public class MainLayout extends AppLayout {
             menuItems.add(new MenuItemInfo("Ventas", LineAwesomeIcon.GLOBE_SOLID.create(), VentasView.class));
         }
         if (accessChecker.hasAccess(ContestaConsultaView.class)) {
-            menuItems.add(new MenuItemInfo("Contesta Consulta", LineAwesomeIcon.GLOBE_SOLID.create(), ContestaConsultaView.class));
+            menuItems.add(new MenuItemInfo("Hacer una consulta", LineAwesomeIcon.GLOBE_SOLID.create(), ContestaConsultaView.class));
         }
         if (accessChecker.hasAccess(CreaServicioView.class)) {
             menuItems.add(new MenuItemInfo("Añadir servicio", LineAwesomeIcon.GLOBE_SOLID.create(), CreaServicioView.class));
