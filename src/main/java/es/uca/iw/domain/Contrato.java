@@ -11,8 +11,21 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @ManyToOne
-    @JoinColumn(name = "cliente_id") // Ajusta el nombre de la columna según tu esquema de base de datos
+    @JoinColumn(name = "servicio_id")
+    private Servicio servicio;
+
+    public Servicio getServicio(){
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio){
+        this.servicio = servicio;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
 

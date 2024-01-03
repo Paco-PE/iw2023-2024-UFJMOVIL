@@ -1,8 +1,6 @@
 package es.uca.iw.domain;
 import java.util.UUID;
 
-import org.springframework.stereotype.Component;
-
 import jakarta.persistence.Id;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -13,7 +11,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.DiscriminatorType;
 
-@Component
 @Entity
 @Table(name = "servicio") // Tabla única para todas las clases de la jerarquía
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
