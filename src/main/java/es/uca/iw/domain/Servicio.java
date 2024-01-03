@@ -1,4 +1,6 @@
 package es.uca.iw.domain;
+import java.util.UUID;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Id;
@@ -21,7 +23,7 @@ public class Servicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
 
     private float precio;
 
@@ -29,11 +31,11 @@ public class Servicio {
 
     private String tiposervicio;
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

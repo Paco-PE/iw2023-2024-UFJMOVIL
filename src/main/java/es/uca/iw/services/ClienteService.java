@@ -2,6 +2,7 @@ package es.uca.iw.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente getClienteById(Long id) {
+    public Cliente getClienteById(UUID id) {
         Optional<Cliente> optionalCliente = clienteRepository.findById(id);
         return optionalCliente.orElse(null);
     }
@@ -32,7 +33,7 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public void deleteCliente(Long id) {
+    public void deleteCliente(UUID id) {
         clienteRepository.deleteById(id);
     }
 }

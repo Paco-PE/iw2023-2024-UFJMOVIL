@@ -1,6 +1,7 @@
 package es.uca.iw.domain;
 
 import java.util.Date;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 
@@ -9,7 +10,7 @@ import jakarta.persistence.*;
 public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "cliente_id") // Ajusta el nombre de la columna según tu esquema de base de datos
     private Cliente cliente;
@@ -43,11 +44,11 @@ public class Contrato {
         this.fechaFin = fechaFin;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
