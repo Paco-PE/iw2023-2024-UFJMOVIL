@@ -14,7 +14,7 @@ public class Contrato {
     @ManyToOne
     @JoinColumn(name = "cliente_id") // Ajusta el nombre de la columna según tu esquema de base de datos
     private Cliente cliente;
-
+    private Servicio servicio;
 
     public Cliente getCliente() {
         return cliente;
@@ -22,6 +22,14 @@ public class Contrato {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Servicio getServicio(){
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio){
+        this.servicio = servicio;
     }
 
     private Date fechaInicio;
