@@ -66,10 +66,10 @@ public class UserLoginView extends LoginOverlay implements BeforeEnterObserver {
                 event.forwardTo("/finanzas");
             } else if (userRole.contains(Role.EMPLEADO_COMERCIAL)) {
                 event.forwardTo("/ventas");
-        }
+            }
 
-        setError(event.getLocation().getQueryParameters().getParameters().containsKey("error"));
+            setError(event.getLocation().getQueryParameters().getParameters().containsKey("error"));
+        }
     }
-}
 }
 

@@ -6,7 +6,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.vaadin.flow.server.StreamResource;
 
-import es.uca.iw.domain.User;
+import es.uca.iw.domain.Cliente;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,7 +27,7 @@ public class PdfService {
         }
     }
 
-    public static StreamResource generarFactura(User cliente) {
+    public static StreamResource generarFactura(Cliente cliente) {
         ByteArrayOutputStream pdfContent = new ByteArrayOutputStream();
         createPdf("Factura para el cliente:\n\n" +
         "Nombre de usuario: " + cliente.getUsername() + "\n" +

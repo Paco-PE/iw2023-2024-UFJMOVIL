@@ -587,7 +587,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         getContent().add(h317);
         getContent().add(ContactaButton);
         getContent().add(buttonPrimary);
-
+/*
         Optional<User> maybeCliente = this.authenticatedUser.get();
         if (maybeCliente.isPresent()) {
             User cliente = maybeCliente.get();
@@ -597,6 +597,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             getContent().setAlignSelf(FlexComponent.Alignment.CENTER, downloadLink);
             getContent().add(downloadLink);
         }
+        */
 
         getContent().add(hr);
         getContent().add(h25);

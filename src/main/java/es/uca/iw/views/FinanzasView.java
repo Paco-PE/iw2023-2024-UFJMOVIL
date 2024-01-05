@@ -19,28 +19,24 @@ import es.uca.iw.domain.User;
 import es.uca.iw.fakers.ClienteFakeService;
 import es.uca.iw.services.ClienteService;
 import es.uca.iw.services.PdfService;
-import es.uca.iw.services.UserDetailsServiceImpl;
+import es.uca.iw.services.ClienteService;
 import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Finanzas")
 @Route(value = "/finanzas", layout = MainLayout.class)
 @RolesAllowed({"EMPLEADO_FINANCIERO", "ADMINISTRADOR"})
 public class FinanzasView extends VerticalLayout {
-    private ClienteService clienteService;
-    private UserDetailsServiceImpl userService;
-    private final Grid<User> grid = new Grid<>(User.class);
+    private final Grid<Cliente> grid = new Grid<>(Cliente.class);
 
-    public FinanzasView(UserDetailsServiceImpl userService){
-        this.userService = userService;
-
+    public FinanzasView(ClienteService clienteService){
         H2 title = new H2("Clientes");
         add(title);
 
-        grid.setItems(userService.loadAll());
+        grid.setItems(clienteService.loadAll());
         grid.removeAllColumns();
-        grid.addColumn(User::getUsername).setHeader("Usuario");
-        grid.addColumn(User::getEmail).setHeader("Email");
-        grid.addColumn(User::getRoles).setHeader("Rol");
+        grid.addColumn(Cliente::getUsername).setHeader("Usuario");
+        grid.addColumn(Cliente::getEmail).setHeader("Email");
+        grid.addColumn(Cliente::getRoles).setHeader("Rol");
 
         grid.addComponentColumn(cliente -> {
             StreamResource pdfResource = PdfService.generarFactura(cliente);

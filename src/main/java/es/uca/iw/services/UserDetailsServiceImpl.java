@@ -1,6 +1,8 @@
 package es.uca.iw.services;
 
+import es.uca.iw.repositories.ClienteRepository;
 import es.uca.iw.repositories.UserRepository;
+import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.Role;
 import es.uca.iw.domain.User;
 import java.util.List;
@@ -54,10 +56,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public boolean registerUser(User user, Role role) {
         try {
-            System.out.println("Registrando usuario: " + user.getUsername());
-            System.out.println("Registrando usuario: " + user.getEmail());
-            System.out.println("Registrando usuario: " + user.getHashedPassword());
-
             user.setHashedPassword(passwordEncoder.encode(user.getHashedPassword()));
             user.addRole(role);
             userRepository.save(user);
