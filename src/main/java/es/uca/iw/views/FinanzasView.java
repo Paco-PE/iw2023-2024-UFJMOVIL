@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -32,8 +35,15 @@ public class FinanzasView extends VerticalLayout {
 
     public FinanzasView(UserDetailsServiceImpl userService){
         this.userService = userService;
+         H1 welcomeText = new H1("UFJMOVIL");
+        H2 welcomeText2 = new H2("Bienvenido, departamento de ventas y marketing");
 
-        H2 title = new H2("Clientes");
+        VerticalLayout layoutcolumn = new VerticalLayout();
+        layoutcolumn.setWidthFull();
+        layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText);
+        layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
+
+        H4 title = new H4("Lista de clientes");
         add(title);
 
         grid.setItems(userService.loadAll());
@@ -52,6 +62,9 @@ public class FinanzasView extends VerticalLayout {
         setSizeFull();
         grid.setSizeFull();
 
+        add(welcomeText);
+        add(welcomeText2);
+        add(title);
         add(grid);
     }
 }
