@@ -36,7 +36,7 @@ public class FinanzasView extends VerticalLayout {
     public FinanzasView(UserDetailsServiceImpl userService){
         this.userService = userService;
          H1 welcomeText = new H1("UFJMOVIL");
-        H2 welcomeText2 = new H2("Bienvenido, departamento de ventas y marketing");
+        H2 welcomeText2 = new H2("Bienvenido, departamento de finanzas");
 
         VerticalLayout layoutcolumn = new VerticalLayout();
         layoutcolumn.setWidthFull();
