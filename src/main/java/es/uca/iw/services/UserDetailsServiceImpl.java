@@ -60,6 +60,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             user.setHashedPassword(passwordEncoder.encode(user.getHashedPassword()));
             user.addRole(role);
+            user.setTipoUsuario(role.name());
+            
             userRepository.save(user);
             return true;
         } catch (Exception e) {

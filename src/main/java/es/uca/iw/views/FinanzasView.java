@@ -46,11 +46,13 @@ public class FinanzasView extends VerticalLayout {
         H4 title = new H4("Lista de clientes");
         add(title);
 
-        grid.setItems(userService.loadAll());
+        grid.setItems(userService.loadAll().stream()
+        .filter(user -> user.getTipoUsuario().equals("CLIENTE"))
+        .collect(Collectors.toList()));
         grid.removeAllColumns();
         grid.addColumn(User::getUsername).setHeader("Usuario");
         grid.addColumn(User::getEmail).setHeader("Email");
-        grid.addColumn(User::getRoles).setHeader("Rol");
+        grid.addColumn(User::getTipoUsuario).setHeader("Rol").setVisible(false);
 
         grid.addComponentColumn(cliente -> {
             StreamResource pdfResource = PdfService.generarFactura(cliente);

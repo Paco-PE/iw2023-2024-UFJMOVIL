@@ -5,10 +5,14 @@ package es.uca.iw.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.*;
 
+@Component
 @Entity
 @Table(name = "cliente")
+@DiscriminatorValue("cliente")
 public class Cliente extends User {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contrato> contratos = new ArrayList<>();
