@@ -17,9 +17,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-import es.uca.iw.services.UserDetailsServiceImpl;
+import es.uca.iw.services.ClienteService;
 import jakarta.annotation.security.PermitAll;
 import es.uca.iw.MainLayout;
+import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.Role;
 import es.uca.iw.domain.User;
 
@@ -33,7 +34,7 @@ public class UserRegistrationView extends VerticalLayout {
     @Serial
     private static final long serialVersionUID = 851217309689685413L;
 
-    private final UserDetailsServiceImpl service;
+    private final ClienteService service;
 
     private final H1 title;
 
@@ -46,9 +47,9 @@ public class UserRegistrationView extends VerticalLayout {
     private final Button register;
     private final H4 status;
 
-    private final BeanValidationBinder<User> binder;
+    private final BeanValidationBinder<Cliente> binder;
 
-    public UserRegistrationView(UserDetailsServiceImpl service) {
+    public UserRegistrationView(ClienteService service) {
         this.service = service;
 
         setJustifyContentMode(JustifyContentMode.CENTER);
@@ -82,10 +83,10 @@ public class UserRegistrationView extends VerticalLayout {
 
         register.addClickListener(e -> onRegisterButtonClick());
 
-        binder = new BeanValidationBinder<>(User.class);
+        binder = new BeanValidationBinder<>(Cliente.class);
         binder.bindInstanceFields(this);
 
-        binder.setBean(new User());
+        binder.setBean(new Cliente());
     }
 
     /**
@@ -93,10 +94,10 @@ public class UserRegistrationView extends VerticalLayout {
      */
     public void onRegisterButtonClick() {
         if (binder.validate().isOk() & hashedPassword.getValue().equals(password2.getValue())) {
-            if (service.registerUser(binder.getBean(), Role.CLIENTE)) { // Por ahora solo registramos clientes
+            if (service.registerUser(binder.getBean())) {
                 status.setText("Enhorabuena, ya formas parte de nuestra familia");
                 status.setVisible(true);
-                binder.setBean(new User());
+                binder.setBean(new Cliente());
                 password2.setValue("");
             } else {
                 Notification.show("El usuario ya esta en uso");

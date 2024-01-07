@@ -5,6 +5,7 @@ import es.uca.iw.repositories.UserRepository;
 
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

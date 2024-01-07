@@ -1,7 +1,5 @@
 package es.uca.iw.domain;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 

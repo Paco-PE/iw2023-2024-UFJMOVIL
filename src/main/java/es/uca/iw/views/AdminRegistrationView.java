@@ -18,10 +18,12 @@ import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.component.combobox.ComboBox;
 
+import es.uca.iw.services.ClienteService;
 import es.uca.iw.services.UserDetailsServiceImpl;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import es.uca.iw.MainLayout;
+import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.Role;
 import es.uca.iw.domain.User;
 
@@ -29,13 +31,15 @@ import java.io.Serial;
 
 @PageTitle("Registrate User")
 @Route(value = "admin/registration", layout = MainLayout.class)
-@RolesAllowed("ADMINISTRADOR")
+//@RolesAllowed("ADMINISTRADOR")
+@AnonymousAllowed
 public class AdminRegistrationView extends VerticalLayout {
 
     @Serial
     private static final long serialVersionUID = 851217309689685413L;
 
-    private final UserDetailsServiceImpl service;
+    private final UserDetailsServiceImpl userService;
+    private final ClienteService clienteService;
 
     private final H1 title;
 
@@ -49,10 +53,12 @@ public class AdminRegistrationView extends VerticalLayout {
     private final Button register;
     private final H4 status;
 
-    private final BeanValidationBinder<User> binder;
+    private final BeanValidationBinder<User> binderUser;
+    private final BeanValidationBinder<Cliente> binderCliente;
 
-    public AdminRegistrationView(UserDetailsServiceImpl service) {
-        this.service = service;
+    public AdminRegistrationView(UserDetailsServiceImpl userService, ClienteService clienteService) {
+        this.userService = userService;
+        this.clienteService = clienteService;
 
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
@@ -88,31 +94,53 @@ public class AdminRegistrationView extends VerticalLayout {
 
         register.addClickListener(e -> onRegisterButtonClick());
 
-        binder = new BeanValidationBinder<>(User.class);
-        binder.bindInstanceFields(this);
-
-        binder.setBean(new User());
+        binderUser = new BeanValidationBinder<>(User.class);
+        binderUser.bindInstanceFields(this);
+        binderUser.setBean(new User());
+        binderCliente = new BeanValidationBinder<>(Cliente.class);
+        binderCliente.bindInstanceFields(this);
+        binderCliente.setBean(new Cliente());
     }
 
     /**
      * Handler
      */
     public void onRegisterButtonClick() {
+        if(roleComboBox.getValue() == Role.CLIENTE){
+            registerCliente();
+        }else{
+            registerUser();
+        }
+    }
 
-        if (binder.validate().isOk() & hashedPassword.getValue().equals(password2.getValue())) {
-            if (service.registerUser(binder.getBean(), roleComboBox.getValue())) {
+    private void registerUser() {
+        if (binderUser.validate().isOk() & hashedPassword.getValue().equals(password2.getValue())) {
+            if (userService.registerUser(binderUser.getBean(), roleComboBox.getValue())) {
                 status.setText("Enhorabuena, ya formas parte de nuestra familia");
                 status.setVisible(true);
-                binder.setBean(new User());
+                binderUser.setBean(new User());
                 password2.setValue("");
             } else {
                 Notification.show("El usuario ya esta en uso");
             }
-
         } else {
             Notification.show("Por favor, rellene correctamente todos los campos");
         }
+    }
 
+    private void registerCliente() {
+        if (binderCliente.validate().isOk() & hashedPassword.getValue().equals(password2.getValue())) {
+            if (clienteService.registerUser(binderCliente.getBean())) {
+                status.setText("Enhorabuena, ya formas parte de nuestra familia");
+                status.setVisible(true);
+                binderCliente.setBean(new Cliente());
+                password2.setValue("");
+            } else {
+                Notification.show("El usuario ya esta en uso");
+            }
+        } else {
+            Notification.show("Por favor, rellene correctamente todos los campos");
+        }
     }
 
 }
