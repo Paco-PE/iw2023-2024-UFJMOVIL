@@ -1,13 +1,7 @@
 package es.uca.iw.views;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.stream.Collectors;
-
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -15,11 +9,8 @@ import com.vaadin.flow.server.StreamResource;
 
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Cliente;
-import es.uca.iw.domain.User;
-import es.uca.iw.fakers.ClienteFakeService;
 import es.uca.iw.services.ClienteService;
 import es.uca.iw.services.PdfService;
-import es.uca.iw.services.ClienteService;
 import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("Finanzas")
