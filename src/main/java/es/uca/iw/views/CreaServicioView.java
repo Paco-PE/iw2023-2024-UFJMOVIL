@@ -60,7 +60,7 @@ public class CreaServicioView extends VerticalLayout{
         llamadasMaximas.setVisible(false);
         llamadasMaximasMovil = new TextField("Llamadas maximas permitidas");
         llamadasMaximasMovil.setVisible(false);
-        datosMaximos = new TextField("Datos maximos permitidos");
+        datosMaximos = new TextField("Datos maximos permitidos (mb)");
         datosMaximos.setVisible(false);
         roaming = new Checkbox("Roaming");
         roaming.setVisible(false);
