@@ -3,6 +3,7 @@ package es.uca.iw.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import net.bytebuddy.implementation.bind.annotation.Default;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,9 @@ public class User extends AbstractEntity{
 
     @NotEmpty
     private String hashedPassword;
+
+    
+    private String tipousuario;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
@@ -66,6 +70,14 @@ public class User extends AbstractEntity{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getTipoUsuario(){
+        return tipousuario;
+    }
+
+    public void setTipoUsuario(String tipousuario){
+        this.tipousuario = tipousuario;
     }
 
     /*

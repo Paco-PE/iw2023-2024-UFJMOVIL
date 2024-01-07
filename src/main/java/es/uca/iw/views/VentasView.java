@@ -78,6 +78,8 @@ public class VentasView extends VerticalLayout {
         grid2.addColumn(Telefonia::getTipoServicio).setHeader("Tipo telefonía");
         grid2.addColumn(Telefonia::getPrecio).setHeader("Precio");
         grid2.addColumn(Telefonia::getMinutosMaximos).setHeader("Minutos máximos");
+        grid2.addColumn(Telefonia::getLlamadasMaximas).setHeader("LLamadas máximas");
+
 
         grid2.addComponentColumn(servicio -> {
             Button deleteButton = new Button("Eliminar");
