@@ -47,4 +47,10 @@ public class ContratoService {
 
         return contratoRepository.save(contrato);
     }
+
+    @Transactional
+    public void descontratar(UUID contratoId) {
+        Contrato contrato = contratoRepository.findById(contratoId).orElseThrow(() -> new RuntimeException("Contrato no encontrado con ID: " + contratoId));
+        contratoRepository.delete(contrato);
+    }
 }

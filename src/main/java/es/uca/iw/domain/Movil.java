@@ -55,4 +55,14 @@ public class Movil extends Telefonia {
     public void setRoaming(boolean roaming) {
         this.roaming = roaming;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

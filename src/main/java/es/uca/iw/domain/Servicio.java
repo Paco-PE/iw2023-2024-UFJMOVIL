@@ -1,4 +1,5 @@
 package es.uca.iw.domain;
+import java.util.Objects;
 import java.util.UUID;
 
 import jakarta.persistence.Id;
@@ -58,5 +59,22 @@ public class Servicio {
 
     public void setTipoServicio(String tipoServicio){
         this.tiposervicio = tipoServicio;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof Servicio)) {
+            return false;
+        }
+        Servicio servicio = (Servicio) obj;
+        return Objects.equals(id, servicio.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

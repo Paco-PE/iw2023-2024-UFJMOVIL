@@ -21,7 +21,6 @@ public class Telefonia extends Servicio {
     private int llamadasMaximas;
     private int nLlamadasRealizadas; // atributo derivado y calculado
 
-    // En la clase Telefonia
     @OneToMany(mappedBy = "servicioTelefonia")
     private PersistentSet<Llamada> llamadasRealizadas;
 
@@ -87,6 +86,16 @@ public class Telefonia extends Servicio {
 
     public void bloquearNumero(String numeroBloq) {
         numerosBloqueados.add(numeroBloq);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }

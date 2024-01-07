@@ -68,4 +68,14 @@ public class ClienteService implements UserDetailsService {
         }
     }
 
+    public boolean save(Cliente cliente) {
+        try {
+            clienteRepository.save(cliente);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }
