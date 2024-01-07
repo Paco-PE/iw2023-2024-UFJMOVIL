@@ -11,7 +11,6 @@
     <artifactId>ufjmovil</artifactId>
     <version>1.0.0</version>
     <name>ufjmovil</name>
-    <packaging>war</packaging>
     <description>iw-fullstack</description>
     <properties>
         <java.version>17</java.version>
@@ -183,12 +182,6 @@
             <version>5.5.13.3</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -202,16 +195,6 @@
                     <wait>500</wait>
                     <maxAttempts>240</maxAttempts>
                 </configuration>
-                 <executions>
-                <execution>
-                    <goals>
-                        <goal>repackage</goal>
-                    </goals>
-                    <configuration>
-                        <packaging>war</packaging>
-                    </configuration>
-                </execution>
-            </executions>
             </plugin>
 
             <plugin>
@@ -222,7 +205,6 @@
                     <execution>
                         <goals>
                             <goal>prepare-frontend</goal>
-                            <goal>build-frontend</goal>
                         </goals>
                     </execution>
                 </executions>
