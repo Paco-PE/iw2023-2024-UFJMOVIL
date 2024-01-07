@@ -47,7 +47,7 @@ public class ClienteService implements UserDetailsService {
         return clienteRepository.findAll();
     }
 
-    public User loadClienteById(UUID id) {
+    public Cliente loadClienteById(UUID id) {
         return clienteRepository.findById(id).orElse(null);
     }
 

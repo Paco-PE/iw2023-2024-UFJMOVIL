@@ -4,6 +4,7 @@ import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.User;
 import es.uca.iw.security.AuthenticatedUser;
+import es.uca.iw.services.ClienteService;
 import es.uca.iw.services.PdfService;
 
 import java.io.ByteArrayInputStream;
@@ -43,10 +44,12 @@ import jakarta.annotation.security.RolesAllowed;
 public class UserMiZonaView extends Composite<VerticalLayout> {
 
     private AuthenticatedUser authenticatedUser;
+    private ClienteService clienteService;
     private Button ContactaButton = new Button("Contacta con nosotros");
 
-    public UserMiZonaView(AuthenticatedUser authenticatedUser) {
+    public UserMiZonaView(AuthenticatedUser authenticatedUser, ClienteService clienteService) {
         this.authenticatedUser = authenticatedUser;
+        this.clienteService = clienteService;
         H2 txtServiciosOfertados = new H2();
         HorizontalLayout layoutRow = new HorizontalLayout();
         VerticalLayout layoutColumn2 = new VerticalLayout();
@@ -587,17 +590,17 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         getContent().add(h317);
         getContent().add(ContactaButton);
         getContent().add(buttonPrimary);
-/*
-        Optional<User> maybeCliente = this.authenticatedUser.get();
-        if (maybeCliente.isPresent()) {
-            User cliente = maybeCliente.get();
+
+        Optional<User> maybeUser = this.authenticatedUser.get();
+        if (maybeUser.isPresent()) {
+            User user = maybeUser.get();
+            Cliente cliente = clienteService.loadClienteById(user.getId());
             StreamResource pdfResource = PdfService.generarFactura(cliente);
             com.vaadin.flow.component.html.Anchor downloadLink = new com.vaadin.flow.component.html.Anchor(pdfResource, "Generar Factura");
             downloadLink.setTarget("_blank");
             getContent().setAlignSelf(FlexComponent.Alignment.CENTER, downloadLink);
             getContent().add(downloadLink);
         }
-        */
 
         getContent().add(hr);
         getContent().add(h25);
