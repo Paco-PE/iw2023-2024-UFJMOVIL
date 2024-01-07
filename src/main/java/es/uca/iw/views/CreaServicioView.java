@@ -87,37 +87,39 @@ public class CreaServicioView extends VerticalLayout{
         Float precioServicio = Float.parseFloat(precioField.getValue());
         String tipoServicio = tipoServicioComboBox.getValue();
 
-        Servicio nuevoServicio = new Servicio();
-        if ("Fibra".equals(tipoServicio)) {
-            Fibra nuevaFibra = new Fibra();
-            nuevaFibra.setName(nombreServicio);
-            nuevaFibra.setPrecio(precioServicio);
-            nuevaFibra.setTipoServicio(tipoServicio);
-            nuevaFibra.setVelocidadContratadaMb(Float.parseFloat(velocidadContratadaField.getValue()));
-            fibraService.SaveFibra(nuevaFibra);
+        switch (tipoServicio) {
+            case "Fibra":
+                Fibra nuevaFibra = new Fibra();
+                nuevaFibra.setName(nombreServicio);
+                nuevaFibra.setPrecio(precioServicio);
+                nuevaFibra.setTipoServicio(tipoServicio);
+                nuevaFibra.setVelocidadContratadaMb(Float.parseFloat(velocidadContratadaField.getValue()));
+                fibraService.SaveFibra(nuevaFibra);
+                break;
+            case "Fijo":
+                Telefonia nuevaTelefonia = new Telefonia();
+                nuevaTelefonia.setName(nombreServicio);
+                nuevaTelefonia.setPrecio(precioServicio);
+                nuevaTelefonia.setTipoServicio(tipoServicio);
+                nuevaTelefonia.setMinutosMaximos(Integer.parseInt(minutosMaximos.getValue()));
+                nuevaTelefonia.setLlamadasMaximas(Integer.parseInt(llamadasMaximas.getValue()));
+                telefoniaService.SaveTelefonia(nuevaTelefonia);
+                break;
+            case "Móvil":
+                Movil nuevoMovil = new Movil();
+                nuevoMovil.setName(nombreServicio);
+                nuevoMovil.setPrecio(precioServicio);
+                nuevoMovil.setTipoServicio(tipoServicio);
+                nuevoMovil.setMinutosMaximos(Integer.parseInt(minutosMaximosMovil.getValue()));
+                nuevoMovil.setLlamadasMaximas(Integer.parseInt(llamadasMaximasMovil.getValue()));
+                nuevoMovil.setDatosMaximosGB(Integer.parseInt(datosMaximos.getValue()));
+                nuevoMovil.setRoaming(roaming.getValue());
+                movilService.SaveMovil(nuevoMovil);
+                break;
+            default:
+                break;
         }
-        if ("Fijo".equals(tipoServicio)){
-            Telefonia nuevaTelefonia = new Telefonia();
-            nuevaTelefonia.setName(nombreServicio);
-            nuevaTelefonia.setPrecio(precioServicio);
-            nuevaTelefonia.setTipoServicio(tipoServicio);
-            nuevaTelefonia.setMinutosMaximos(Integer.parseInt(minutosMaximos.getValue()));
-            nuevaTelefonia.setLlamadasMaximas(Integer.parseInt(llamadasMaximas.getValue()));
-            telefoniaService.SaveTelefonia(nuevaTelefonia);
-            
-        }
-        if ("Móvil".equals(tipoServicio)){
-            Movil nuevoMovil = new Movil();
-            nuevoMovil.setName(nombreServicio);
-            nuevoMovil.setPrecio(precioServicio);
-            nuevoMovil.setTipoServicio(tipoServicio);
-            nuevoMovil.setMinutosMaximos(Integer.parseInt(minutosMaximosMovil.getValue()));
-            nuevoMovil.setLlamadasMaximas(Integer.parseInt(llamadasMaximasMovil.getValue()));
-            nuevoMovil.setDatosMaximosGB(Integer.parseInt(datosMaximos.getValue()));
-            nuevoMovil.setRoaming(roaming.getValue());
-            movilService.SaveMovil(nuevoMovil);
-            
-        }
+
         Notification notification = new Notification("Servicio guardado correctamente");
         notification.setPosition(Notification.Position.TOP_CENTER);
         notification.setDuration(3000);

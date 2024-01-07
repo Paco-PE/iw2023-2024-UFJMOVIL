@@ -23,4 +23,8 @@ public class TelefoniaService {
     public List<Telefonia> findAll(){
         return repository.findAll();
     }
+
+    public List<Telefonia> findAllFijo(){
+        return repository.findAllFijo();
+    }
 }

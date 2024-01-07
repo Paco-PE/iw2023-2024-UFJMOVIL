@@ -21,4 +21,14 @@ public class Fibra extends Servicio {
     public void setVelocidadContratadaMb(float velocidadContratadaMb) {
         this.velocidadContratadaMb = velocidadContratadaMb;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

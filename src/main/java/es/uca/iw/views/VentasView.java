@@ -67,7 +67,7 @@ public class VentasView extends VerticalLayout {
             });
         
             VerticalLayout buttonLayout = new VerticalLayout(deleteButton);
-            buttonLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+            buttonLayout.setAlignItems(FlexComponent.Alignment.START);
         
             return buttonLayout;
         }).setHeader("Acciones");
@@ -89,7 +89,7 @@ public class VentasView extends VerticalLayout {
             });
         
             VerticalLayout buttonLayout = new VerticalLayout(deleteButton);
-            buttonLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+            buttonLayout.setAlignItems(FlexComponent.Alignment.START);
         
             return buttonLayout;
         }).setHeader("Acciones");

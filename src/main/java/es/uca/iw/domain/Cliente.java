@@ -12,9 +12,8 @@ import jakarta.persistence.*;
 @Table(name = "cliente")
 @DiscriminatorValue("cliente")
 public class Cliente extends User {
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Contrato> contratos = new ArrayList<>();
-
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Contrato> contratos;
 
     public List<Contrato> getContratos() {
         return contratos;
@@ -25,8 +24,10 @@ public class Cliente extends User {
     }
 
     public void addContrato(Contrato contrato) {
+        if (contratos == null) {
+            contratos = new ArrayList<>();
+        }
         contratos.add(contrato);
-        contrato.setCliente(this);
     }
 
     public void removeContrato(Contrato contrato) {

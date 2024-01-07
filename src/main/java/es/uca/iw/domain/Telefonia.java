@@ -16,14 +16,11 @@ import org.springframework.stereotype.Component;
 @Table(name = "servicio_telefonia")
 @DiscriminatorValue("telefonia") // Valor discriminador para identificar la subclase
 public class Telefonia extends Servicio {
-    
     private int minutosMaximos;
     private int minutosConsumidos; // atributo derivado y calculado
     private int llamadasMaximas;
     private int nLlamadasRealizadas; // atributo derivado y calculado
-    private String tipomovil;
 
-    // En la clase Telefonia
     @OneToMany(mappedBy = "servicioTelefonia")
     private PersistentSet<Llamada> llamadasRealizadas;
 
@@ -91,12 +88,14 @@ public class Telefonia extends Servicio {
         numerosBloqueados.add(numeroBloq);
     }
 
-    public String getTipoMovil(){
-        return tipomovil;
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
-    public void setTipoMovil(String tipoMovil){
-        this.tipomovil = tipoMovil;
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }
