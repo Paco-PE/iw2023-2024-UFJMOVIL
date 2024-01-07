@@ -31,8 +31,7 @@ import java.io.Serial;
 
 @PageTitle("Registrate User")
 @Route(value = "admin/registration", layout = MainLayout.class)
-//@RolesAllowed("ADMINISTRADOR")
-@AnonymousAllowed
+@RolesAllowed("ADMINISTRADOR")
 public class AdminRegistrationView extends VerticalLayout {
 
     @Serial

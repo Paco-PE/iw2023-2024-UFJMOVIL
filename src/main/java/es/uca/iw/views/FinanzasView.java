@@ -40,8 +40,6 @@ public class FinanzasView extends VerticalLayout {
         setSizeFull();
         grid.setSizeFull();
 
-        add(welcomeText);
-        add(welcomeText2);
         add(title);
         add(grid);
     }
