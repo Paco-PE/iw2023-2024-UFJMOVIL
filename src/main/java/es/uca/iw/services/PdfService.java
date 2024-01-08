@@ -8,6 +8,7 @@ import com.vaadin.flow.server.StreamResource;
 
 import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.Contrato;
+import es.uca.iw.domain.Fibra;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -35,8 +36,9 @@ public class PdfService {
     
         if (cliente.getContratos() != null) {
             for (Contrato contrato : cliente.getContratos()) {
-                factura.append(" - Servicio: " + contrato.getServicio().getName() + "\n" +
-                    "   Fecha de inicio: " + contrato.getFechaInicio().toString() + "\n" +
+                factura.append(" - Servicio: " + contrato.getServicio().getName() + "\n");
+                if(!(contrato.getServicio() instanceof Fibra)) factura.append("   Número de teléfono: " + contrato.getNumeroTelefono() + "\n");
+                factura.append("   Fecha de inicio: " + contrato.getFechaInicio().toString() + "\n" +
                     "   Precio: " + contrato.getServicio().getPrecio() + " € \n\n");
                 costeMensualTotal += contrato.getServicio().getPrecio();
             }
