@@ -9,6 +9,7 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -67,15 +68,15 @@ public class VentasView extends VerticalLayout {
                 servicioService.deleteServicio(servicio);
                 grid.setItems(fibraService.findAll());
             });
-        
+
             Button modifyButton = new Button("Modificar");
             modifyButton.addClickListener(e -> {
                 UI.getCurrent().navigate("modificaservicio/" + servicio.getId().toString());
             });
-        
-            VerticalLayout buttonLayout = new VerticalLayout(deleteButton, modifyButton);
+
+            HorizontalLayout buttonLayout = new HorizontalLayout(deleteButton, modifyButton);
             buttonLayout.setAlignItems(FlexComponent.Alignment.START);
-        
+
             return buttonLayout;
         }).setHeader("Acciones");
 
@@ -95,15 +96,15 @@ public class VentasView extends VerticalLayout {
                 servicioService.deleteServicio(servicio);
                 grid.setItems(fibraService.findAll());
             });
-        
+
             Button modifyButton = new Button("Modificar");
             modifyButton.addClickListener(e -> {
                 UI.getCurrent().navigate("modificaservicio/" + servicio.getId().toString());
             });
-        
-            VerticalLayout buttonLayout = new VerticalLayout(deleteButton, modifyButton);
+
+            HorizontalLayout buttonLayout = new HorizontalLayout(deleteButton, modifyButton);
             buttonLayout.setAlignItems(FlexComponent.Alignment.START);
-        
+
             return buttonLayout;
         }).setHeader("Acciones");
 

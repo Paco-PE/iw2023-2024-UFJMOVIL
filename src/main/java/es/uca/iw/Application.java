@@ -11,6 +11,7 @@ import es.uca.iw.services.UserDetailsServiceImpl;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,7 +31,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class Application implements AppShellConfigurator {
 
     @Autowired
-    private UserDetailsServiceImpl userService;
+    @Qualifier("userDetailsServiceImpl")
+    private UserDetailsService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -41,10 +43,11 @@ public class Application implements AppShellConfigurator {
         return args -> {
             if (userService.loadUserByUsername("admin") == null) {
                 User admin = new User();
+
                 admin.setUsername("admin");
                 admin.setEmail("admin@gmail.com");
                 admin.setHashedPassword("admin");
-                userService.registerUser(admin, Role.ADMINISTRADOR);
+                ((UserDetailsServiceImpl) userService).registerUser(admin, Role.ADMINISTRADOR);
             }
         };
     }
