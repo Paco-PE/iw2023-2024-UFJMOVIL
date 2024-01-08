@@ -7,12 +7,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.vaadin.flow.server.StreamResource;
 
 import es.uca.iw.domain.Cliente;
+import es.uca.iw.domain.Contrato;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 public class PdfService {
     public static void createPdf(String content, ByteArrayOutputStream outputStream) {
@@ -29,10 +27,25 @@ public class PdfService {
 
     public static StreamResource generarFactura(Cliente cliente) {
         ByteArrayOutputStream pdfContent = new ByteArrayOutputStream();
-        createPdf("Factura para el cliente:\n\n" +
-        "Nombre de usuario: " + cliente.getUsername() + "\n" +
-        "Correo electrónico: " + cliente.getEmail() + "\n\n" +
-        "Gracias por su negocio.", pdfContent);
-        return new StreamResource(cliente.getId() + ".pdf", () -> new ByteArrayInputStream(pdfContent.toByteArray()));
+        float costeMensualTotal = 0;
+        StringBuilder factura = new StringBuilder("FACTURA\n\n" +
+            "Nombre de usuario: " + cliente.getUsername() + "\n" +
+            "Correo electrónico: " + cliente.getEmail() + "\n\n" +
+            "----------------------------------------------------------------------------------------------------------------------------------\n\n");
+    
+        if (cliente.getContratos() != null) {
+            for (Contrato contrato : cliente.getContratos()) {
+                factura.append(" - Servicio: " + contrato.getServicio().getName() + "\n" +
+                    "   Fecha de inicio: " + contrato.getFechaInicio().toString() + "\n" +
+                    "   Precio: " + contrato.getServicio().getPrecio() + " € \n\n");
+                costeMensualTotal += contrato.getServicio().getPrecio();
+            }
+        }
+    
+        factura.append( "----------------------------------------------------------------------------------------------------------------------------------\n\n" +
+            "Coste mensual: "+ costeMensualTotal +" € \n\n" + 
+            "Gracias por su confianza.");
+        createPdf(factura.toString(), pdfContent);
+        return new StreamResource(cliente.getUsername() + "Factura" + ".pdf", () -> new ByteArrayInputStream(pdfContent.toByteArray()));
     }
 }

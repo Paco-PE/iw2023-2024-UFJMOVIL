@@ -65,6 +65,9 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             cliente = clienteService.loadClienteById(user.getId());
         }
 
+        StreamResource pdfResource;
+        com.vaadin.flow.component.html.Anchor downloadLink;
+
         List<Contrato> contratos = cliente.getContratos();
         Set<Servicio> serviciosOld = new HashSet<>();
         Set<Servicio> serviciosNew = new HashSet<>();
@@ -195,8 +198,8 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         h26.setText("Desglose de llamadas");
         h26.setWidth("max-content");
 
-        StreamResource pdfResource = PdfService.generarFactura(cliente);
-        com.vaadin.flow.component.html.Anchor downloadLink = new com.vaadin.flow.component.html.Anchor(pdfResource, "Generar Factura");
+        pdfResource = PdfService.generarFactura(cliente);
+        downloadLink = new com.vaadin.flow.component.html.Anchor(pdfResource, "Generar Factura");
         downloadLink.setTarget("_blank");
 
         getContent().add(txtServiciosOfertados);
