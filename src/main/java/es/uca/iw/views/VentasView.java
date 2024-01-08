@@ -56,6 +56,7 @@ public class VentasView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
         grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        grid.setAllRowsVisible(true);
         grid.setItems(fibraService.findAll());
         grid.removeAllColumns(); 
         grid.addColumn(Fibra::getName).setHeader("Name");
@@ -81,6 +82,7 @@ public class VentasView extends VerticalLayout {
         }).setHeader("Acciones");
 
         grid2.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        grid2.setAllRowsVisible(true);
         grid2.setItems(telefoniaService.findAll());
         grid2.removeAllColumns(); 
         grid2.addColumn(Telefonia::getName).setHeader("Name");
