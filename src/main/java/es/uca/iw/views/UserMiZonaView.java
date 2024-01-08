@@ -18,6 +18,7 @@ import es.uca.iw.services.TelefoniaService;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -215,16 +216,27 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
                 Notification.show("No se han realizado cambios");
             }else{
                 if(!serviciosNew.isEmpty()){
+                    //Eliminamos los contratos que ya no se quieren
                     if(cliente.getContratos() != null){
-                        for (Contrato contrato : cliente.getContratos()) {
-                            contratoService.descontratar(contrato.getId());
+                        Iterator<Contrato> iterator = cliente.getContratos().iterator();
+                        while (iterator.hasNext()) {
+                            Contrato contrato = iterator.next();
+                            if (serviciosOld.contains(contrato.getServicio()) && !serviciosNew.contains(contrato.getServicio())) {
+                                contratoService.descontratar(contrato.getId());
+                                iterator.remove();
+                            }
                         }
-                        cliente.setContratos(null);
                         clienteService.save(cliente);
                     }
-                    for (Servicio servicio : serviciosNew) {
+
+                    //Añadimos los nuevos contratos
+                    Set<Servicio> newServices = new HashSet<>(serviciosNew);
+                    newServices.removeAll(serviciosOld);
+
+                    for (Servicio servicio : newServices) {
                         cliente.addContrato(contratoService.contratar(servicio.getId(), cliente.getId(), new Date(), null, servicio.getPrecio()));
                     }
+
                     clienteService.save(cliente);
                     serviciosOld.clear();
                     serviciosOld.addAll(serviciosNew);

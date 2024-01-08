@@ -1,6 +1,5 @@
 package es.uca.iw.domain;
 
-
 import java.util.UUID;
 
 import jakarta.persistence.*;

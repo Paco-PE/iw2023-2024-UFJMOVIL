@@ -28,7 +28,6 @@ public class Contrato {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -38,9 +37,6 @@ public class Contrato {
     }
 
     private Date fechaInicio;
-    private Date fechaFin;
-    private float costemensual;
-
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -49,6 +45,8 @@ public class Contrato {
         this.fechaInicio = fechaInicio;
     }
 
+    private Date fechaFin;
+    
     public Date getFechaFin() {
         return fechaFin;
     }
@@ -56,6 +54,8 @@ public class Contrato {
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+
+    private float costemensual;
 
     public UUID getId() {
         return id;
@@ -67,6 +67,31 @@ public class Contrato {
 
     public float getCosteMensual(){
         return costemensual;
+    }
+
+    private String numeroTelefono;
+
+    public String getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    public void setNumeroTelefonoAleatorio() {
+        String numeroTelefono = generateRandomPhoneNumber();
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    private String generateRandomPhoneNumber() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("6");
+        for (int i = 0; i < 8; i++) {
+            int digit = (int) (Math.random() * 10);
+            sb.append(digit);
+        }
+        return sb.toString();
+    }
+
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
     }
 
     public void setCosteMensual(Float costemensual){

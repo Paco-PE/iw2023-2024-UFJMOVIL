@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import es.uca.iw.repositories.ClienteRepository;
 
 import es.uca.iw.domain.Contrato;
+import es.uca.iw.domain.Fibra;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,6 +40,24 @@ public class ContratoService {
         Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + clienteId));
 
         Contrato contrato = new Contrato();
+        if(!(servicio instanceof Fibra)) contrato.setNumeroTelefonoAleatorio();
+        contrato.setServicio(servicio);
+        contrato.setCliente(cliente);
+        contrato.setFechaInicio(fechaInicio);
+        contrato.setFechaFin(fechaFin);
+        contrato.setCosteMensual(costeMensual);
+
+        return contratoRepository.save(contrato);
+    }
+
+    @Transactional
+    public Contrato contratar(UUID servicioId, UUID clienteId, Date fechaInicio, Date fechaFin, float costeMensual, String numeroTelefono) {
+
+        Servicio servicio = servicioRepository.findById(servicioId).orElseThrow(() -> new RuntimeException("Servicio no encontrado con ID: " + servicioId));
+        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + clienteId));
+
+        Contrato contrato = new Contrato();
+        if(!(servicio instanceof Fibra)) contrato.setNumeroTelefono(numeroTelefono);
         contrato.setServicio(servicio);
         contrato.setCliente(cliente);
         contrato.setFechaInicio(fechaInicio);
