@@ -4,6 +4,7 @@ package es.uca.iw.views;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H4;
@@ -53,6 +54,7 @@ public class VentasView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText);
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
+        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         grid.setItems(fibraService.findAll());
         grid.removeAllColumns(); 
         grid.addColumn(Fibra::getName).setHeader("Name");
@@ -77,6 +79,7 @@ public class VentasView extends VerticalLayout {
             return buttonLayout;
         }).setHeader("Acciones");
 
+        grid2.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         grid2.setItems(telefoniaService.findAll());
         grid2.removeAllColumns(); 
         grid2.addColumn(Telefonia::getName).setHeader("Name");
