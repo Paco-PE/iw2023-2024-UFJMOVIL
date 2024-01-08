@@ -32,9 +32,6 @@ public class Application implements AppShellConfigurator {
     @Autowired
     private UserDetailsServiceImpl userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
