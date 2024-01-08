@@ -127,12 +127,12 @@ public class MainLayout extends AppLayout {
             div.getElement().getStyle().set("align-items", "center");
             div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
             userName.add(div);
-            userName.getSubMenu().addItem("Cerrar sesión", e -> {
-                authenticatedUser.logout();
-            });
             userName.getSubMenu().addItem("Editar usuario", e -> {
                 getUI().ifPresent(ui -> ui.navigate("user/edit"));
             });
+            userName.getSubMenu().addItem("Cerrar sesión", e -> {
+                authenticatedUser.logout();
+            }).getStyle().set("color", "red");
 
             layout.add(userMenu);
         } else {
