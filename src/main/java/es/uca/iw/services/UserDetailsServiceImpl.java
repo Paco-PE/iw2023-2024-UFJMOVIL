@@ -54,6 +54,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
     public boolean registerUser(User user, Role role) {
         try {
             user.setHashedPassword(passwordEncoder.encode(user.getHashedPassword()));

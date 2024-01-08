@@ -130,6 +130,9 @@ public class MainLayout extends AppLayout {
             userName.getSubMenu().addItem("Cerrar sesión", e -> {
                 authenticatedUser.logout();
             });
+            userName.getSubMenu().addItem("Editar usuario", e -> {
+                getUI().ifPresent(ui -> ui.navigate("user/edit"));
+            });
 
             layout.add(userMenu);
         } else {
