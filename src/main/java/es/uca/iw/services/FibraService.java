@@ -20,6 +20,14 @@ public class FibraService {
         return repository.save(fibra);
     }
 
+    public Fibra UpdateFibra(Fibra fibra) {
+        if (fibra.getId() != null && repository.existsById(fibra.getId())) {
+            return repository.save(fibra);
+        } else {
+            throw new IllegalArgumentException("Fibra no encontrada");
+        }
+    }
+
     public List<Fibra> findAll(){
         return repository.findAll();
     }

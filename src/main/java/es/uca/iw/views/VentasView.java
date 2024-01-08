@@ -66,7 +66,12 @@ public class VentasView extends VerticalLayout {
                 grid.setItems(fibraService.findAll());
             });
         
-            VerticalLayout buttonLayout = new VerticalLayout(deleteButton);
+            Button modifyButton = new Button("Modificar");
+            modifyButton.addClickListener(e -> {
+                UI.getCurrent().navigate("modificaservicio/" + servicio.getId().toString());
+            });
+        
+            VerticalLayout buttonLayout = new VerticalLayout(deleteButton, modifyButton);
             buttonLayout.setAlignItems(FlexComponent.Alignment.START);
         
             return buttonLayout;
@@ -85,10 +90,15 @@ public class VentasView extends VerticalLayout {
             Button deleteButton = new Button("Eliminar");
             deleteButton.addClickListener(e -> {
                 servicioService.deleteServicio(servicio);
-                grid2.setItems(telefoniaService.findAll());
+                grid.setItems(fibraService.findAll());
             });
         
-            VerticalLayout buttonLayout = new VerticalLayout(deleteButton);
+            Button modifyButton = new Button("Modificar");
+            modifyButton.addClickListener(e -> {
+                UI.getCurrent().navigate("modificaservicio/" + servicio.getId().toString());
+            });
+        
+            VerticalLayout buttonLayout = new VerticalLayout(deleteButton, modifyButton);
             buttonLayout.setAlignItems(FlexComponent.Alignment.START);
         
             return buttonLayout;

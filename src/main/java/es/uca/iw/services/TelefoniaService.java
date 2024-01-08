@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import es.uca.iw.domain.Movil;
 import es.uca.iw.domain.Servicio;
 import es.uca.iw.domain.Telefonia;
 import es.uca.iw.repositories.TelefoniaRepository;
@@ -22,6 +23,14 @@ public class TelefoniaService {
 
     public List<Telefonia> findAll(){
         return repository.findAll();
+    }
+
+    public Telefonia UpdateTelefonia(Telefonia telefonia) {
+        if (telefonia.getId() != null && repository.existsById(telefonia.getId())) {
+            return repository.save(telefonia);
+        } else {
+            throw new IllegalArgumentException("Fibra no encontrada");
+        }
     }
 
     public List<Telefonia> findAllFijo(){

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import es.uca.iw.domain.Fibra;
 import es.uca.iw.domain.Movil;
 import es.uca.iw.domain.Servicio;
 import es.uca.iw.repositories.MovilRepository;
@@ -18,6 +19,14 @@ public class MovilService {
 
     public Movil SaveMovil (Movil movil){
         return repository.save(movil);
+    }
+
+    public Movil UpdateMovil(Movil movil) {
+        if (movil.getId() != null && repository.existsById(movil.getId())) {
+            return repository.save(movil);
+        } else {
+            throw new IllegalArgumentException("Fibra no encontrada");
+        }
     }
 
     public List<Movil> findAll(){
