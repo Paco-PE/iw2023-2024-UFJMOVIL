@@ -31,6 +31,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Hr;
@@ -77,45 +78,82 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         }
 
         Grid<Fibra> gridFibra = new Grid<>();
+        gridFibra.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridFibra.addColumn(Fibra::getName).setHeader("Nombre");
         gridFibra.addColumn(Fibra::getVelocidadContratadaMb).setHeader("Velocidad");
         gridFibra.addColumn(Fibra::getPrecio).setHeader("Precio");
         gridFibra.setItems(fibraService.findAll());
         gridFibra.setWidthFull();
+        
+        //Hacemos que solo se pueda seleccionar uno de los checkboxes
+        Checkbox[] previousCheckboxFibra = {null};
         gridFibra.addComponentColumn(fibra -> {
             Checkbox checkbox = new Checkbox();
             checkbox.setValue(serviciosNew.contains(fibra));
             checkbox.addValueChangeListener(event -> {
                 if (event.getValue()) {
+                    // Si hay un Checkbox seleccionado previamente, desmárcalo
+                    if (previousCheckboxFibra[0] != null) {
+                        previousCheckboxFibra[0].setValue(false);
+                    }
+                    // Actualiza el Checkbox seleccionado previamente
+                    previousCheckboxFibra[0] = checkbox;
                     serviciosNew.add(fibra);
                 } else {
                     serviciosNew.remove(fibra);
+                    if (previousCheckboxFibra[0] == checkbox) {
+                        // Si el Checkbox desmarcado era el seleccionado previamente, actualiza previousCheckbox a null
+                        previousCheckboxFibra[0] = null;
+                    }
                 }
             });
+            // Si el Checkbox está seleccionado al crear la tabla, haz que sea el seleccionado previamente
+            if (checkbox.getValue()) {
+                previousCheckboxFibra[0] = checkbox;
+            }
             return checkbox;
         }).setHeader("Contratado");
         
         Grid<Telefonia> gridFijo = new Grid<>();
+        gridFijo.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridFijo.addColumn(Telefonia::getName).setHeader("Nombre");
         gridFijo.addColumn(Telefonia::getMinutosMaximos).setHeader("Minutos máximos");
         gridFijo.addColumn(Telefonia::getLlamadasMaximas).setHeader("Llamadas máximas");
         gridFijo.addColumn(Telefonia::getPrecio).setHeader("Precio");
         gridFijo.setItems(telefoniaService.findAllFijo());
         gridFijo.setWidthFull();
+
+        //Hacemos que solo se pueda seleccionar uno de los checkboxes
+        Checkbox[] previousCheckboxFijo = {null};
         gridFijo.addComponentColumn(fijo -> {
             Checkbox checkbox = new Checkbox();
             checkbox.setValue(serviciosNew.contains(fijo));
             checkbox.addValueChangeListener(event -> {
                 if (event.getValue()) {
+                    // Si hay un Checkbox seleccionado previamente, desmárcalo
+                    if (previousCheckboxFijo[0] != null) {
+                        previousCheckboxFijo[0].setValue(false);
+                    }
+                    // Actualiza el Checkbox seleccionado previamente
+                    previousCheckboxFijo[0] = checkbox;
                     serviciosNew.add(fijo);
                 } else {
                     serviciosNew.remove(fijo);
+                    if (previousCheckboxFijo[0] == checkbox) {
+                        // Si el Checkbox desmarcado era el seleccionado previamente, actualiza previousCheckbox a null
+                        previousCheckboxFijo[0] = null;
+                    }
                 }
             });
+            // Si el Checkbox está seleccionado al crear la tabla, haz que sea el seleccionado previamente
+            if (checkbox.getValue()) {
+                previousCheckboxFijo[0] = checkbox;
+            }
             return checkbox;
         }).setHeader("Contratado");
         
         Grid<Movil> gridMovil = new Grid<>();
+        gridMovil.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridMovil.addColumn(Movil::getName).setHeader("Nombre");
         gridMovil.addColumn(Movil::getMinutosMaximos).setHeader("Minutos máximos");
         gridMovil.addColumn(Movil::getLlamadasMaximas).setHeader("Llamadas máximas");
