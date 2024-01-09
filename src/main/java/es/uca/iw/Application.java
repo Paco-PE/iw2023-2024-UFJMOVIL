@@ -17,6 +17,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -41,7 +42,9 @@ public class Application implements AppShellConfigurator {
     @Bean
     public CommandLineRunner createAdminUser() {
         return args -> {
-            if (userService.loadUserByUsername("admin") == null) {
+            try {
+                userService.loadUserByUsername("admin");
+            } catch (UsernameNotFoundException e) {
                 User admin = new User();
 
                 admin.setUsername("admin");
