@@ -56,6 +56,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public boolean delete(User user) {
+        try {
+            userRepository.delete(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean registerUser(User user, Role role) {
         try {
             user.setHashedPassword(passwordEncoder.encode(user.getHashedPassword()));
