@@ -31,23 +31,24 @@ public class ContestaConsultaView extends VerticalLayout{
         add(descripcion);
         add(emailcontacto);
 
-       guardarBoton = new Button("Guardar");
+        guardarBoton = new Button("Guardar");
         guardarBoton.addClickListener(e -> {
             String descripcionUsuario = descripcion.getValue();
             String emailContactoUsuario = emailcontacto.getValue();
-
-            Consulta consulta = new Consulta();
-            consulta.setDescripcion(descripcionUsuario);
-            consulta.setEmailContacto(emailContactoUsuario);
-
-            consultaService.createConsulta(consulta);
-
-            Notification notification = new Notification("Consulta guardada correctamente");
-            notification.setPosition(Notification.Position.TOP_CENTER);
-            notification.setDuration(3000);
-            notification.open();
-            descripcion.clear();
-            emailcontacto.clear();
+        
+            if (descripcionUsuario.isEmpty() || emailContactoUsuario.isEmpty()) {
+                Notification.show("Todos los campos son obligatorios");
+            } else {
+                Consulta consulta = new Consulta();
+                consulta.setDescripcion(descripcionUsuario);
+                consulta.setEmailContacto(emailContactoUsuario);
+        
+                consultaService.createConsulta(consulta);
+        
+                Notification.show("Consulta guardada correctamente");
+                descripcion.clear();
+                emailcontacto.clear();
+            }
         });
         add(guardarBoton);
     }
