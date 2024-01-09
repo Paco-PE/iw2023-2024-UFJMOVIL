@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -90,14 +91,14 @@ public class Contrato {
     }
 
     private String generateRandomPhoneNumber() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("6");
-        for (int i = 0; i < 8; i++) {
-            int digit = (int) (Math.random() * 10);
-            sb.append(digit);
-        }
-        return sb.toString();
+    StringBuilder sb = new StringBuilder();
+    sb.append("6");
+    for (int i = 0; i < 8; i++) {
+        int digit = ThreadLocalRandom.current().nextInt(10);
+        sb.append(digit);
     }
+    return sb.toString();
+}
 
     public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;

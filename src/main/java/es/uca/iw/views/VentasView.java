@@ -37,8 +37,6 @@ public class VentasView extends VerticalLayout {
     private final TelefoniaService telefoniaService;
     private final Grid<Fibra> grid = new Grid<>(Fibra.class);
     private final Grid<Telefonia> grid2 = new Grid<>(Telefonia.class);
-   
-    
 
     public VentasView(ServicioService servicioService,FibraService fibraService, MovilService movilService, TelefoniaService telefoniaService){
         this.servicioService = servicioService;

@@ -37,8 +37,17 @@ public class CreaServicioView extends VerticalLayout{
     private final TextField llamadasMaximas;
     private final TextField llamadasMaximasMovil;
     private final TextField datosMaximos;
-    private final Checkbox roaming;
     private final Button guardarButton;
+
+    private TextField createTextField(String label) {
+        return createTextField(label, true);
+    }
+
+    private TextField createTextField(String label, boolean visible) {
+        TextField textField = new TextField(label);
+        textField.setVisible(visible);
+        return textField;
+    }
 
     public CreaServicioView(ServicioService servicioService, FibraService fibraService, TelefoniaService telefoniaService, MovilService movilService) {
         this.servicioService = servicioService;
@@ -46,24 +55,16 @@ public class CreaServicioView extends VerticalLayout{
         this.telefoniaService = telefoniaService;
         this.movilService = movilService;
 
-        nombreField = new TextField("Nombre del Servicio");
-        precioField = new TextField("Precio del Servicio");
+        nombreField = createTextField("Nombre del Servicio");
+        precioField = createTextField("Precio del Servicio");
+        velocidadContratadaField = createTextField("Velocidad contratada (mb)", false);
+        minutosMaximos = createTextField("Minutos maximos permitidos", false);
+        minutosMaximosMovil = createTextField("Minutos maximos permitidos", false);
+        llamadasMaximas = createTextField("Llamadas maximas permitidas", false);
+        llamadasMaximasMovil = createTextField("Llamadas maximas permitidas", false);
+        datosMaximos = createTextField("Datos maximos permitidos", false);
         tipoServicioComboBox = new ComboBox<>("Tipo de Servicio");
         tipoServicioComboBox.setItems("Fibra", "Fijo", "Móvil");
-        velocidadContratadaField = new TextField("Velocidad contratada (mb)");
-        velocidadContratadaField.setVisible(false);
-        minutosMaximos = new TextField("Minutos maximos permitidos");
-        minutosMaximos.setVisible(false);
-        minutosMaximosMovil = new TextField("Minutos maximos permitidos");
-        minutosMaximosMovil.setVisible(false);
-        llamadasMaximas = new TextField("Llamadas maximas permitidas");
-        llamadasMaximas.setVisible(false);
-        llamadasMaximasMovil = new TextField("Llamadas maximas permitidas");
-        llamadasMaximasMovil.setVisible(false);
-        datosMaximos = new TextField("Datos maximos permitidos");
-        datosMaximos.setVisible(false);
-        roaming = new Checkbox("Roaming");
-        roaming.setVisible(false);
 
         guardarButton = new Button("Guardar Servicio");
         guardarButton.addClickListener(e -> guardarServicio());
@@ -76,10 +77,9 @@ public class CreaServicioView extends VerticalLayout{
             llamadasMaximas.setVisible("Fijo".equals(selectedTipoServicio));
             llamadasMaximasMovil.setVisible("Móvil".equals(selectedTipoServicio));
             datosMaximos.setVisible("Móvil".equals(selectedTipoServicio));
-            roaming.setVisible("Móvil".equals(selectedTipoServicio));
         });
 
-        add(nombreField, precioField,tipoServicioComboBox,velocidadContratadaField,minutosMaximos,minutosMaximosMovil,llamadasMaximas,llamadasMaximasMovil,datosMaximos,roaming, guardarButton);
+        add(nombreField, precioField,tipoServicioComboBox,velocidadContratadaField,minutosMaximos,minutosMaximosMovil,llamadasMaximas,llamadasMaximasMovil,datosMaximos, guardarButton);
     }
 
     private void guardarServicio() {
@@ -131,6 +131,5 @@ public class CreaServicioView extends VerticalLayout{
         llamadasMaximas.clear();
         llamadasMaximasMovil.clear();
         datosMaximos.clear();
-        roaming.clear();
     }
 }
