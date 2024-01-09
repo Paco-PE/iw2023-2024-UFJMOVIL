@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.checkerframework.checker.units.qual.t;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            return null;
+            throw new UsernameNotFoundException(username);
         } else {
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHashedPassword(),
                     getAuthorities(user));
