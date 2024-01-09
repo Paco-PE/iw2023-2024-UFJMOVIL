@@ -24,7 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  *
  */
 @SpringBootApplication
-@Theme(value = "UFJMOVIL")
+@Theme(value = "ufjmovil")
 public class Application implements AppShellConfigurator {
 
     @Autowired
