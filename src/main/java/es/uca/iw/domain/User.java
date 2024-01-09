@@ -3,7 +3,6 @@ package es.uca.iw.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import net.bytebuddy.implementation.bind.annotation.Default;
 
 import java.util.HashSet;
 import java.util.Set;

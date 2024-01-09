@@ -1,15 +1,12 @@
 package es.uca.iw.services;
 
-import es.uca.iw.repositories.ClienteRepository;
 import es.uca.iw.repositories.UserRepository;
-import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.Role;
 import es.uca.iw.domain.User;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.checkerframework.checker.units.qual.t;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

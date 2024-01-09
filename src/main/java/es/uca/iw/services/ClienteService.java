@@ -1,7 +1,6 @@
 package es.uca.iw.services;
 
 import es.uca.iw.repositories.ClienteRepository;
-import es.uca.iw.repositories.UserRepository;
 import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.Role;
 import es.uca.iw.domain.User;

@@ -10,19 +10,13 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import es.uca.iw.services.ClienteService;
-import jakarta.annotation.security.PermitAll;
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Cliente;
-import es.uca.iw.domain.Role;
-import es.uca.iw.domain.User;
 
 import java.io.Serial;
 

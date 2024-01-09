@@ -1,7 +1,6 @@
 package es.uca.iw.views;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -11,7 +10,6 @@ import com.vaadin.flow.router.Route;
 
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Fibra;
-import es.uca.iw.domain.Servicio;
 import es.uca.iw.domain.Telefonia;
 import es.uca.iw.domain.Movil;
 import es.uca.iw.services.FibraService;
@@ -24,7 +22,6 @@ import jakarta.annotation.security.RolesAllowed;
 @Route(value = "/creaservicio", layout = MainLayout.class)
 @RolesAllowed({"EMPLEADO_COMERCIAL", "ADMINISTRADOR"})
 public class CreaServicioView extends VerticalLayout{
-    private final ServicioService servicioService;
     private final FibraService fibraService;
     private final TelefoniaService telefoniaService;
     private final MovilService movilService;
@@ -50,7 +47,6 @@ public class CreaServicioView extends VerticalLayout{
     }
 
     public CreaServicioView(ServicioService servicioService, FibraService fibraService, TelefoniaService telefoniaService, MovilService movilService) {
-        this.servicioService = servicioService;
         this.fibraService = fibraService;
         this.telefoniaService = telefoniaService;
         this.movilService = movilService;

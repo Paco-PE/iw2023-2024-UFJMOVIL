@@ -5,10 +5,7 @@ import com.vaadin.flow.theme.Theme;
 
 import es.uca.iw.domain.Role;
 import es.uca.iw.domain.User;
-import es.uca.iw.repositories.UserRepository;
 import es.uca.iw.services.UserDetailsServiceImpl;
-
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * The entry point of the Spring Boot application.

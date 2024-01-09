@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import es.uca.iw.domain.Fibra;
 import es.uca.iw.domain.Movil;
-import es.uca.iw.domain.Servicio;
 import es.uca.iw.repositories.MovilRepository;
 
 @Service

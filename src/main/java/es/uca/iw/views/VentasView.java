@@ -11,14 +11,13 @@ import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import java.util.HashSet;
 import java.util.List;
 
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Servicio;
-import es.uca.iw.domain.Movil;
 import es.uca.iw.domain.Fibra;
 import es.uca.iw.domain.Telefonia;
 import es.uca.iw.services.FibraService;
@@ -31,18 +30,20 @@ import jakarta.annotation.security.RolesAllowed;
 @Route(value = "/ventas", layout = MainLayout.class)
 @RolesAllowed({"EMPLEADO_COMERCIAL", "ADMINISTRADOR"})
 public class VentasView extends VerticalLayout {
-    private final ServicioService servicioService;
-    private final MovilService movilService;
-    private final FibraService fibraService;
-    private final TelefoniaService telefoniaService;
     private final Grid<Fibra> grid = new Grid<>(Fibra.class);
     private final Grid<Telefonia> grid2 = new Grid<>(Telefonia.class);
 
+    private <T extends Servicio> void configureGrid(Grid<T> grid, List<T> items, ValueProvider<T, ?>... columns) {
+        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        grid.setAllRowsVisible(true);
+        grid.setItems(items);
+        grid.removeAllColumns();
+        for (ValueProvider<T, ?> column : columns) {
+            grid.addColumn(column).setHeader(column.toString());
+        }
+    }
+
     public VentasView(ServicioService servicioService,FibraService fibraService, MovilService movilService, TelefoniaService telefoniaService){
-        this.servicioService = servicioService;
-        this.fibraService = fibraService;
-        this.telefoniaService = telefoniaService;
-        this.movilService = movilService;
         H1 welcomeText = new H1("UFJMOVIL");
         H2 welcomeText2 = new H2("Bienvenido, departamento de ventas y marketing");
         H4 fibraText = new H4("Servicios de fibra disponibles:");
@@ -53,13 +54,7 @@ public class VentasView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText);
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
-        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
-        grid.setAllRowsVisible(true);
-        grid.setItems(fibraService.findAll());
-        grid.removeAllColumns(); 
-        grid.addColumn(Fibra::getName).setHeader("Name");
-        grid.addColumn(Fibra::getPrecio).setHeader("Precio");
-        grid.addColumn(Fibra::getVelocidadContratadaMb).setHeader("Velocidad contratada");
+        configureGrid(grid, fibraService.findAll(), Fibra::getName, Fibra::getPrecio, Fibra::getVelocidadContratadaMb);
 
         grid.addComponentColumn(servicio -> {
             Button deleteButton = new Button("Eliminar");
@@ -79,15 +74,7 @@ public class VentasView extends VerticalLayout {
             return buttonLayout;
         }).setHeader("Acciones");
 
-        grid2.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
-        grid2.setAllRowsVisible(true);
-        grid2.setItems(telefoniaService.findAll());
-        grid2.removeAllColumns(); 
-        grid2.addColumn(Telefonia::getName).setHeader("Name");
-        grid2.addColumn(Telefonia::getTipoServicio).setHeader("Tipo telefonía");
-        grid2.addColumn(Telefonia::getPrecio).setHeader("Precio");
-        grid2.addColumn(Telefonia::getMinutosMaximos).setHeader("Minutos máximos");
-        grid2.addColumn(Telefonia::getLlamadasMaximas).setHeader("LLamadas máximas");
+        configureGrid(grid2, telefoniaService.findAll(), Telefonia::getName, Telefonia::getTipoServicio, Telefonia::getPrecio, Telefonia::getMinutosMaximos, Telefonia::getLlamadasMaximas);
 
 
         grid2.addComponentColumn(servicio -> {

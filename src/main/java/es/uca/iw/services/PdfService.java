@@ -13,7 +13,11 @@ import es.uca.iw.domain.Fibra;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PdfService {
+    private static final Logger logger = LoggerFactory.getLogger(PdfService.class);
     public static void createPdf(String content, ByteArrayOutputStream outputStream) {
         Document document = new Document();
         try {
@@ -22,7 +26,7 @@ public class PdfService {
             document.add(new Paragraph(content));
             document.close();
         } catch (DocumentException e) {
-            e.printStackTrace();
+            logger.error("Error creating PDF", e);
         }
     }
 

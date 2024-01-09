@@ -22,16 +22,10 @@ import jakarta.annotation.security.RolesAllowed;
 @Route(value = "/atencion", layout = MainLayout.class)
 @RolesAllowed({"EMPLEADO_ATENCION_CLIENTE", "ADMINISTRADOR"})
 public class AtencionClienteView extends VerticalLayout {
-    private final ConsultaService consultaService;
-    private final ContratoService contratoService;
     private final Grid<Consulta> grid = new Grid<>(Consulta.class);
     private final Grid<Contrato> grid2 = new Grid<>(Contrato.class);
-    private Checkbox checkbox;
-
 
     public AtencionClienteView(ConsultaService consultaService,ContratoService contratoService){
-        this.consultaService = consultaService;
-        this.contratoService = contratoService;
         H1 welcomeText = new H1("UFJMOVIL");
         H2 welcomeText2 = new H2("Bienvenido, departamento de atención al cliente");
         H4 consultasText = new H4("Consultas de nuestros clientes:");
