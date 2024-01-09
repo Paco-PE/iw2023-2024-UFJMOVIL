@@ -28,22 +28,9 @@ import jakarta.annotation.security.RolesAllowed;
 @PageTitle("Crea Servicio")
 @Route(value = "/modificaservicio", layout = MainLayout.class)
 @RolesAllowed({"EMPLEADO_COMERCIAL", "ADMINISTRADOR"})
-public class ServicioModifyView extends VerticalLayout implements HasUrlParameter<String>{
+public class ServicioModifyView extends ServicioViewBase implements HasUrlParameter<String>{
     private H2 title = new H2("Modificar Servicio");
     private final ServicioService servicioService;
-    private final FibraService fibraService;
-    private final TelefoniaService telefoniaService;
-    private final MovilService movilService;
-    private final TextField nombreField;
-    private final TextField precioField;
-    private final ComboBox<String> tipoServicioComboBox;
-    private final TextField velocidadContratadaField;
-    private final TextField minutosMaximos;
-    private final TextField minutosMaximosMovil;
-    private final TextField llamadasMaximas;
-    private final TextField llamadasMaximasMovil;
-    private final TextField datosMaximos;
-    private final Button guardarButton;
     private Servicio servicio;
 
     private TextField createTextField(String label, boolean visible) {
