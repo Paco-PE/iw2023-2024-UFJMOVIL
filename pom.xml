@@ -9,7 +9,7 @@
     </parent>
     <groupId>es.uca.iw</groupId>
     <artifactId>ufjmovil</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>ufjmovil</name>
     <properties>
         <java.version>17</java.version>
@@ -189,6 +189,10 @@
             <name>GitHub Paco-PE Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/paco-pe/iw2023-2024-UFJMOVIL</url>
         </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/paco-pe/iw2023-2024-UFJMOVIL</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <build>
