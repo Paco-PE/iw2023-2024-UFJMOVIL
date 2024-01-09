@@ -1,4 +1,6 @@
 package es.uca.iw.services;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import es.uca.iw.repositories.ContratoRepository;
@@ -12,9 +14,11 @@ import es.uca.iw.domain.Fibra;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import es.uca.iw.domain.Servicio;
 import es.uca.iw.domain.Cliente;
+
 import java.util.Date;
 
 @Service
@@ -31,6 +35,14 @@ public class ContratoService {
 
     public List<Contrato> findAll(){
         return contratoRepository.findAll();
+    }
+
+    public Stream<Contrato> findAll(int offset, int limit) {
+        return contratoRepository.findAll(PageRequest.of(offset / limit, limit)).getContent().stream();
+    }
+
+    public int count() {
+        return (int) contratoRepository.count();
     }
 
     public Optional<Contrato> findByNumeroTelefono(String numeroTelefono){

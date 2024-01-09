@@ -3,8 +3,10 @@ package es.uca.iw.services;
 import es.uca.iw.domain.Consulta;
 import es.uca.iw.repositories.ConsultaRepository;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class ConsultaService {
@@ -20,6 +22,14 @@ public class ConsultaService {
 
     public List<Consulta> findAll(){
         return repository.findAll();
+    }
+
+    public Stream<Consulta> findAll(int offset, int limit) {
+        return repository.findAll(PageRequest.of(offset / limit, limit)).getContent().stream();
+    }
+
+    public int count() {
+        return (int) repository.count();
     }
 
     public Consulta saveConsulta(Consulta consulta){

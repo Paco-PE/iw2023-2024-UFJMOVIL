@@ -7,6 +7,7 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -37,7 +38,6 @@ public class AtencionClienteView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText);
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
-        grid.setItems(consultaService.findAll());
         grid.removeAllColumns(); // Eliminar todas las columnas generadas automáticamente
         grid.addColumn(Consulta::getDescripcion).setHeader("Descripción");
         grid.addColumn(Consulta::getEmailContacto).setHeader("Email del cliente");
@@ -51,14 +51,23 @@ public class AtencionClienteView extends VerticalLayout {
             });
             return checkbox;
         }).setHeader("Resuelta");
+        DataProvider<Consulta, Void> consultaDataProvider = DataProvider.fromCallbacks(
+            query -> consultaService.findAll(query.getOffset(), query.getLimit()),
+            query -> consultaService.count()
+        );
+        grid.setItems(consultaDataProvider);
 
-        grid2.setItems(contratoService.findAll());
         grid2.removeAllColumns();
         grid2.addColumn(contrato -> contrato.getCliente().getUsername()).setHeader("Cliente");
         grid2.addColumn(contrato -> contrato.getServicio().getName()).setHeader("Servicio");
         grid2.addColumn(Contrato::getFechaInicio).setHeader("Fecha inicio");
         //grid2.addColumn(Contrato::getFechaFin).setHeader("Fecha fin");
         grid2.addColumn(Contrato::getCosteMensual).setHeader("Coste mensual");
+        DataProvider<Contrato, Void> contratoDataProvider = DataProvider.fromCallbacks(
+            query -> contratoService.findAll(query.getOffset(), query.getLimit()),
+            query -> contratoService.count()
+        );
+        grid2.setItems(contratoDataProvider);
        
         add(welcomeText);
         add(welcomeText2);
