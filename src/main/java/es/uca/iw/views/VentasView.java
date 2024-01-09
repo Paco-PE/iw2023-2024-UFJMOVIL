@@ -13,6 +13,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import java.util.Arrays;
 import java.util.List;
 
 import es.uca.iw.MainLayout;
@@ -32,13 +34,14 @@ public class VentasView extends VerticalLayout {
     private final Grid<Fibra> grid = new Grid<>(Fibra.class);
     private final Grid<Telefonia> grid2 = new Grid<>(Telefonia.class);
 
-    private <T extends Servicio> void configureGrid(Grid<T> grid, List<T> items, ValueProvider<T, ?>... columns) {
+    @SafeVarargs
+    private <T extends Servicio> void configureGrid(Grid<T> grid, List<T> items, List<String> columnHeaders, ValueProvider<T, ?>... columns) {
         grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         grid.setAllRowsVisible(true);
         grid.setItems(items);
         grid.removeAllColumns();
-        for (ValueProvider<T, ?> column : columns) {
-            grid.addColumn(column).setHeader(column.toString());
+        for (int i = 0; i < columns.length; i++) {
+            grid.addColumn(columns[i]).setHeader(columnHeaders.get(i));
         }
     }
 
@@ -53,7 +56,14 @@ public class VentasView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText);
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
-        configureGrid(grid, fibraService.findAll(), Fibra::getName, Fibra::getPrecio, Fibra::getVelocidadContratadaMb);
+        configureGrid(
+            grid, 
+            fibraService.findAll(), 
+            Arrays.asList("Nombre", "Precio", "Velocidad Contratada"), 
+            Fibra::getName, 
+            Fibra::getPrecio, 
+            Fibra::getVelocidadContratadaMb
+        );
 
         grid.addComponentColumn(servicio -> {
             Button deleteButton = new Button("Eliminar");
@@ -73,9 +83,23 @@ public class VentasView extends VerticalLayout {
             return buttonLayout;
         }).setHeader("Acciones");
 
-        configureGrid(grid2, telefoniaService.findAll(), Telefonia::getName, Telefonia::getTipoServicio, Telefonia::getPrecio, Telefonia::getMinutosMaximos, Telefonia::getLlamadasMaximas);
-
-
+        configureGrid(
+            grid2, 
+            telefoniaService.findAll(), 
+            Arrays.asList(
+                "Nombre", 
+                "Tipo de Servicio", 
+                "Precio", 
+                "Minutos Máximos", 
+                "Llamadas Máximas"
+            ), 
+            Telefonia::getName, 
+            Telefonia::getTipoServicio, 
+            Telefonia::getPrecio, 
+            Telefonia::getMinutosMaximos, 
+            Telefonia::getLlamadasMaximas
+        );
+        
         grid2.addComponentColumn(servicio -> {
             Button deleteButton = new Button("Eliminar");
             deleteButton.addClickListener(e -> {
