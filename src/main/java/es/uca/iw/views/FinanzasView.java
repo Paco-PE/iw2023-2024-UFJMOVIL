@@ -27,7 +27,6 @@ public class FinanzasView extends VerticalLayout {
         grid.removeAllColumns();
         grid.addColumn(Cliente::getUsername).setHeader("Usuario");
         grid.addColumn(Cliente::getEmail).setHeader("Email");
-        grid.addColumn(Cliente::getNumeroTelefono).setHeader("Teléfono");
 
         grid.addComponentColumn(cliente -> {
             StreamResource pdfResource = PdfService.generarFactura(cliente);
