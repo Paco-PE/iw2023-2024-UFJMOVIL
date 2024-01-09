@@ -30,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn clean -Dmaven.test.skip=true -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Paco-PE_iw2023-2024-UFJMOVIL -Dsonar.organization=Paco-PE
+        run: mvn clean -Dmaven.test.skip=true -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Paco-PE_iw2023-2024-UFJMOVIL -Dsonar.organization=paco-pe
       - name: Build and Deploy to GitHub Packages
         run: mvn deploy -Dmaven.test.skip=true -U -B -Pproduction
         env:
