@@ -45,7 +45,6 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.StreamResource;
@@ -60,6 +59,25 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
     private AuthenticatedUser authenticatedUser;
     private Cliente cliente;
     private Button ContactaButton = new Button("Contacta con nosotros");
+    private StreamResource pdfResource;
+    private com.vaadin.flow.component.html.Anchor downloadLink;
+    private Grid<Fibra> gridFibra;
+    private Grid<Telefonia> gridFijo;
+    private Grid<Movil> gridMovil;
+    private Grid<Movil> gridMisMoviles;
+
+    private void updateFactura(){
+        pdfResource = PdfService.generarFactura(cliente);
+        downloadLink.setHref(pdfResource);
+    }
+
+    private void updateGridMovil(){
+        List<Movil> movilesContratados = cliente.getContratos().stream()
+            .filter(contrato -> contrato.getServicio() instanceof Movil)
+            .map(contrato -> (Movil) contrato.getServicio())
+            .collect(Collectors.toList());
+        gridMisMoviles.setItems(movilesContratados);
+    }
 
     public UserMiZonaView(AuthenticatedUser authenticatedUser, ClienteService clienteService, FibraService fibraService, MovilService movilService, TelefoniaService telefoniaService, ContratoService contratoService) {
         this.authenticatedUser = authenticatedUser;
@@ -70,8 +88,9 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             cliente = clienteService.loadClienteById(user.getId());
         }
 
-        StreamResource pdfResource;
-        com.vaadin.flow.component.html.Anchor downloadLink;
+        pdfResource = PdfService.generarFactura(cliente);
+        downloadLink = new com.vaadin.flow.component.html.Anchor(pdfResource, "Generar Factura");
+        downloadLink.setTarget("_blank");
 
         List<Contrato> contratos = cliente.getContratos();
         Set<Servicio> serviciosOld = new HashSet<>();
@@ -81,7 +100,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             serviciosNew.add(contrato.getServicio());
         }
 
-        Grid<Fibra> gridFibra = new Grid<>();
+        gridFibra = new Grid<>();
         gridFibra.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridFibra.setAllRowsVisible(true);
         gridFibra.addColumn(Fibra::getName).setHeader("Nombre");
@@ -119,7 +138,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             return checkbox;
         }).setHeader("Contratado");
         
-        Grid<Telefonia> gridFijo = new Grid<>();
+        gridFijo = new Grid<>();
         gridFijo.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridFijo.setAllRowsVisible(true);
         gridFijo.addColumn(Telefonia::getName).setHeader("Nombre");
@@ -158,7 +177,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             return checkbox;
         }).setHeader("Contratado");
         
-        Grid<Movil> gridMovil = new Grid<>();
+        gridMovil = new Grid<>();
         gridMovil.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridMovil.setAllRowsVisible(true);
         gridMovil.addColumn(Movil::getName).setHeader("Nombre");
@@ -300,6 +319,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
                     clienteService.save(cliente);
                     serviciosOld.clear();
                     serviciosOld.addAll(serviciosNew);
+                    updateFactura();
                     Notification.show("Contrato actualizado");
                 } else {
                     Notification.show("No se han seleccionado servicios");
@@ -313,10 +333,6 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         h25.setWidth("max-content");
         h26.setText("Desglose de llamadas");
         h26.setWidth("max-content");
-
-        pdfResource = PdfService.generarFactura(cliente);
-        downloadLink = new com.vaadin.flow.component.html.Anchor(pdfResource, "Generar Factura");
-        downloadLink.setTarget("_blank");
 
         getContent().add(txtServiciosOfertados);
         getContent().add(layoutColumn);
