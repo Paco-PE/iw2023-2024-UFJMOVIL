@@ -69,14 +69,6 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         downloadLink.setHref(pdfResource);
     }
 
-    private void updateGridMovil(){
-        List<Movil> movilesContratados = cliente.getContratos().stream()
-            .filter(contrato -> contrato.getServicio() instanceof Movil)
-            .map(contrato -> (Movil) contrato.getServicio())
-            .collect(Collectors.toList());
-        gridMisMoviles.setItems(movilesContratados);
-    }
-
     public UserMiZonaView(AuthenticatedUser authenticatedUser, ClienteService clienteService, FibraService fibraService, MovilService movilService, TelefoniaService telefoniaService, ContratoService contratoService) {
         this.authenticatedUser = authenticatedUser;
 

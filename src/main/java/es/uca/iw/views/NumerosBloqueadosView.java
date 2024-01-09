@@ -42,7 +42,7 @@ public class NumerosBloqueadosView extends VerticalLayout implements HasUrlParam
             Button button = new Button("Eliminar", clickEvent -> {
                 contrato.getNumerosBloqueados().remove(numeroBloqueado);
                 contratoService.save(contrato);
-                grid.setItems(contrato.getNumerosBloqueados());
+                updateGrid();
             });
             return button;
         }).setHeader("Acciones");
@@ -65,9 +65,10 @@ public class NumerosBloqueadosView extends VerticalLayout implements HasUrlParam
         else Notification.show("Número ya bloqueado");
         contratoService.save(contrato);
         nuevoNumero.clear();
+        contrato = contratoService.findByNumeroTelefono(contrato.getNumeroTelefono()).orElseThrow(() -> new RuntimeException("Contrato no encontrado"));
         updateGrid();
     }
-
+    
     @Override
     public void setParameter(BeforeEvent event, String numeroTelefono) {
         Optional<Contrato> maybeContrato = contratoService.findByNumeroTelefono(numeroTelefono);
