@@ -42,8 +42,8 @@ jobs:
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          application_name: ufjmovil   # Configurar nombre de la app
-          environment_name: ufjmovil-env  # Configurar nombre del entorno
+          application_name: UFJMOVIL   # Configurar nombre de la app
+          environment_name: UFJMOVIL-prod  # Configurar nombre del entorno
           region: us-east-1 # Configurar región
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
