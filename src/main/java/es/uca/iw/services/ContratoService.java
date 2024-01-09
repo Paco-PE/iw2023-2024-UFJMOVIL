@@ -10,6 +10,7 @@ import es.uca.iw.domain.Contrato;
 import es.uca.iw.domain.Fibra;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import es.uca.iw.domain.Servicio;
@@ -32,6 +33,13 @@ public class ContratoService {
         return contratoRepository.findAll();
     }
 
+    public Optional<Contrato> findByNumeroTelefono(String numeroTelefono){
+        return contratoRepository.findByNumeroTelefono(numeroTelefono);
+    }
+
+    public Contrato save(Contrato contrato) {
+        return contratoRepository.save(contrato);
+    }
 
     @Transactional
     public Contrato contratar(UUID servicioId, UUID clienteId, Date fechaInicio, Date fechaFin, float costeMensual) {

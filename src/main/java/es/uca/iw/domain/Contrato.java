@@ -1,7 +1,12 @@
 package es.uca.iw.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import jakarta.persistence.*;
 
@@ -11,6 +16,14 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     @ManyToOne
     @JoinColumn(name = "servicio_id")
@@ -57,16 +70,12 @@ public class Contrato {
 
     private float costemensual;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public float getCosteMensual(){
         return costemensual;
+    }
+
+    public void setCosteMensual(Float costemensual){
+        this.costemensual = costemensual;
     }
 
     private String numeroTelefono;
@@ -94,7 +103,34 @@ public class Contrato {
         this.numeroTelefono = numeroTelefono;
     }
 
-    public void setCosteMensual(Float costemensual){
-        this.costemensual = costemensual;
+    public boolean roaming;
+
+    public boolean isRoaming() {
+        return roaming;
+    }
+    
+    public void setRoaming(boolean roaming) {
+        this.roaming = roaming;
+    }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.JOIN)
+    private List<String> numerosBloqueados;
+
+    public List<String> getNumerosBloqueados() {
+        return numerosBloqueados;
+    }
+    
+    public void setNumerosBloqueados(List<String> numerosBloqueados) {
+        this.numerosBloqueados = numerosBloqueados;
+    }
+
+    public boolean addNumeroBloqueado(String numeroTelefono){
+        if(numerosBloqueados == null) numerosBloqueados = new ArrayList<>();
+        if(numerosBloqueados.contains(numeroTelefono)) {
+            return false;
+        } else {
+            return this.numerosBloqueados.add(numeroTelefono);
+        }
     }
 }

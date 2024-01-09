@@ -22,10 +22,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.hibernate.Hibernate;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -33,6 +35,7 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Hr;
@@ -162,7 +165,6 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         gridMovil.addColumn(Movil::getMinutosMaximos).setHeader("Minutos máximos");
         gridMovil.addColumn(Movil::getLlamadasMaximas).setHeader("Llamadas máximas");
         gridMovil.addColumn(Movil::getDatosMaximosGB).setHeader("Datos máximos");
-        gridMovil.addColumn(Movil::getRoaming).setHeader("Roaming");
         gridMovil.addColumn(Movil::getPrecio).setHeader("Precio");
         gridMovil.setItems(movilService.findAll());
         gridMovil.setWidthFull();
@@ -179,13 +181,67 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             return checkbox;
         }).setHeader("Contratado");
 
+        Grid<Movil> gridMisMoviles = new Grid<>();
+        gridMisMoviles.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        gridMisMoviles.setAllRowsVisible(true);
+        gridMisMoviles.addColumn(movil -> {
+            Contrato contrato = cliente.getContratos().stream()
+                .filter(c -> c.getServicio().equals(movil))
+                .findFirst()
+                .orElse(null);
+        
+            return contrato != null ? contrato.getNumeroTelefono() : "";
+        }).setHeader("Número de teléfono");
+        gridMisMoviles.addColumn(Movil::getName).setHeader("Tarifa");
+        gridMisMoviles.addComponentColumn(movil -> {
+            Contrato contrato = cliente.getContratos().stream()
+                .filter(c -> c.getServicio().equals(movil))
+                .findFirst()
+                .orElse(null);
+        
+            if (contrato != null) {
+                Checkbox checkbox = new Checkbox();
+                checkbox.setValue(contrato.isRoaming());
+                checkbox.addValueChangeListener(event -> {
+                    contrato.setRoaming(event.getValue());
+                    contratoService.save(contrato);
+                });
+                return checkbox;
+            } else {
+                return new Checkbox(); // Devuelve un Checkbox vacío si no se encuentra el contrato
+            }
+        }).setHeader("Roaming");
+        gridMisMoviles.addComponentColumn(movil -> {
+        Contrato contrato = cliente.getContratos().stream()
+            .filter(c -> c.getServicio().equals(movil))
+            .findFirst()
+            .orElse(null);
+
+            if (contrato != null) {
+                String url = "numeros-bloqueados/" + contrato.getNumeroTelefono();
+                Anchor anchor = new Anchor(url, "Ver números bloqueados");
+                return anchor;
+            } else {
+                return new Text(""); // Devuelve un texto vacío si no se encuentra el contrato
+            }
+        }).setHeader("Números bloqueados");
+        gridMisMoviles.setWidthFull();
+        List<Movil> movilesContratados = cliente.getContratos().stream()
+            .filter(contrato -> contrato.getServicio() instanceof Movil)
+            .map(contrato -> (Movil) contrato.getServicio())
+            .collect(Collectors.toList());
+        gridMisMoviles.setItems(movilesContratados);
+
 
         H2 txtServiciosOfertados = new H2();
         VerticalLayout layoutColumn = new VerticalLayout();
+        VerticalLayout layoutColumn2 = new VerticalLayout();
         Button actualizaButton = new Button();
         Hr hr = new Hr();
-        H2 h25 = new H2();
+        H2 h24 = new H2();
         Hr hr2 = new Hr();
+        H2 h25 = new H2();
+        Hr hr3 = new Hr();
         H2 h26 = new H2();
 
         H3 txtFibra = new H3();
@@ -205,6 +261,10 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         layoutColumn.setWidthFull();
         layoutColumn.setJustifyContentMode(JustifyContentMode.START);
         layoutColumn.setAlignItems(Alignment.START);
+        layoutColumn2.setHeightFull();
+        layoutColumn2.setWidthFull();
+        layoutColumn2.setJustifyContentMode(JustifyContentMode.START);
+        layoutColumn2.setAlignItems(Alignment.START);
         getContent().setAlignSelf(FlexComponent.Alignment.CENTER, ContactaButton);
 
         actualizaButton.setText("Actualizar contrato");
@@ -246,6 +306,9 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
                 }
             }
         });
+
+        h24.setText("Mis móviles");
+        h24.setWidth("max-content");
         h25.setText("Consumo de datos 5G");
         h25.setWidth("max-content");
         h26.setText("Desglose de llamadas");
@@ -270,8 +333,12 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         getContent().add(downloadLink);
 
         getContent().add(hr);
-        getContent().add(h25);
+        getContent().add(h24);
+        getContent().add(layoutColumn2);
+        layoutColumn2.add(gridMisMoviles);
         getContent().add(hr2);
+        getContent().add(h25);
+        getContent().add(hr3);
         getContent().add(h26);
 
         ContactaButton.addClickListener(event -> {

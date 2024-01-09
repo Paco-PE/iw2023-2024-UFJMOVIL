@@ -128,7 +128,6 @@ public class ServicioModifyView extends VerticalLayout implements HasUrlParamete
                     movilExistente.setMinutosMaximos(Integer.parseInt(minutosMaximosMovil.getValue()));
                     movilExistente.setLlamadasMaximas(Integer.parseInt(llamadasMaximasMovil.getValue()));
                     movilExistente.setDatosMaximosGB(Float.parseFloat(datosMaximos.getValue()));
-                    movilExistente.setRoaming(roaming.getValue());
                     movilService.UpdateMovil(movilExistente);
                 }
                 break;
@@ -160,7 +159,6 @@ public class ServicioModifyView extends VerticalLayout implements HasUrlParamete
                     minutosMaximosMovil.setValue(String.valueOf(((Movil) servicio).getMinutosMaximos()));
                     llamadasMaximasMovil.setValue(String.valueOf(((Movil) servicio).getLlamadasMaximas()));
                     datosMaximos.setValue(String.valueOf(((Movil) servicio).getDatosMaximosGB()));
-                    roaming.setValue(((Movil) servicio).getRoaming());
                 }
             }
         } else {

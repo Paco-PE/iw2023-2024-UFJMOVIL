@@ -113,7 +113,6 @@ public class CreaServicioView extends VerticalLayout{
                 nuevoMovil.setMinutosMaximos(Integer.parseInt(minutosMaximosMovil.getValue()));
                 nuevoMovil.setLlamadasMaximas(Integer.parseInt(llamadasMaximasMovil.getValue()));
                 nuevoMovil.setDatosMaximosGB(Integer.parseInt(datosMaximos.getValue()));
-                nuevoMovil.setRoaming(roaming.getValue());
                 movilService.SaveMovil(nuevoMovil);
                 break;
             default:
