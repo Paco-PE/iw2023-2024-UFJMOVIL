@@ -1,4 +1,5 @@
 package es.uca.iw.domain;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.DiscriminatorType;
 
 @Entity
-@Table(name = "servicio") // Tabla única para todas las clases de la jerarquía
+@Table(name = "servicio")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_servicio", discriminatorType = DiscriminatorType.STRING)
 
@@ -37,27 +38,27 @@ public class Servicio {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public float getPrecio(){
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio){
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
-    public String getTipoServicio(){
+    public String getTipoServicio() {
         return tiposervicio;
     }
 
-    public void setTipoServicio(String tipoServicio){
+    public void setTipoServicio(String tipoServicio) {
         this.tiposervicio = tipoServicio;
     }
 

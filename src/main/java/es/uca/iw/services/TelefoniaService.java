@@ -27,7 +27,7 @@ public class TelefoniaService {
         if (telefonia.getId() != null && repository.existsById(telefonia.getId())) {
             return repository.save(telefonia);
         } else {
-            throw new IllegalArgumentException("Fibra no encontrada");
+            throw new IllegalArgumentException("Telefonia no encontrada");
         }
     }
 

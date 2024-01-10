@@ -18,11 +18,11 @@ public class Llamada {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "telefonia_id") // Ajusta el nombre de la columna según tu esquema de base de datos
+    @JoinColumn(name = "telefonia_id")
     private Telefonia servicioTelefonia;
 
     private Date fecha;
-    private int duracion; // en minutos
+    private int duracion; // minutos
     private String numero;
 
     public Llamada() {

@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "appuser")
-public class User extends AbstractEntity{
+public class User extends AbstractEntity {
 
     @NotEmpty
     @Column(unique = true)
@@ -23,7 +23,6 @@ public class User extends AbstractEntity{
     @NotEmpty
     private String hashedPassword;
 
-    
     private String tipousuario;
 
     @Enumerated(EnumType.STRING)
@@ -31,10 +30,11 @@ public class User extends AbstractEntity{
     private Set<Role> roles = new HashSet<>();
 
     /*
-    @Lob
-    @Column(length = 1000000)
-    private byte[] profilePicture;
-    */
+     * @Lob
+     * 
+     * @Column(length = 1000000)
+     * private byte[] profilePicture;
+     */
 
     public String getUsername() {
         return username;
@@ -55,6 +55,7 @@ public class User extends AbstractEntity{
     public String getHashedPassword() {
         return hashedPassword;
     }
+
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
@@ -71,20 +72,20 @@ public class User extends AbstractEntity{
         this.roles = roles;
     }
 
-    public String getTipoUsuario(){
+    public String getTipoUsuario() {
         return tipousuario;
     }
 
-    public void setTipoUsuario(String tipousuario){
+    public void setTipoUsuario(String tipousuario) {
         this.tipousuario = tipousuario;
     }
 
     /*
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-    */
+     * public byte[] getProfilePicture() {
+     * return profilePicture;
+     * }
+     * public void setProfilePicture(byte[] profilePicture) {
+     * this.profilePicture = profilePicture;
+     * }
+     */
 }

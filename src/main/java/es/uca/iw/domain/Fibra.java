@@ -5,11 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @Entity
 @Table(name = "servicio_fibra")
-@DiscriminatorValue("fibra") // Valor discriminador para identificar la subclase
+@DiscriminatorValue("fibra")
 
 public class Fibra extends Servicio {
     private float velocidadContratadaMb;
