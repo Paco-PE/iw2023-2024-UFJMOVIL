@@ -1,5 +1,6 @@
 package es.uca.iw.views;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
@@ -68,6 +69,15 @@ public class AtencionClienteView extends VerticalLayout {
             query -> contratoService.count()
         );
         grid2.setItems(contratoDataProvider);
+
+         grid2.addComponentColumn(contrato -> {
+            Button darDeBajaButton = new Button("Dar de baja");
+            darDeBajaButton.addClickListener(event -> {
+                contratoService.descontratar(contrato.getId()); 
+                grid2.setItems(contratoService.findAll()); 
+            });
+            return darDeBajaButton;
+        }).setHeader("Acciones");
        
         add(welcomeText);
         add(welcomeText2);
