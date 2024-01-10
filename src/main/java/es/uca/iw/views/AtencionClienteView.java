@@ -14,6 +14,7 @@ import com.vaadin.flow.router.Route;
 
 import es.uca.iw.MainLayout;
 import es.uca.iw.domain.Consulta;
+import es.uca.iw.services.ClienteService;
 import es.uca.iw.services.ConsultaService;
 import es.uca.iw.domain.Contrato;
 import es.uca.iw.services.ContratoService;
@@ -27,12 +28,11 @@ public class AtencionClienteView extends VerticalLayout {
     private final Grid<Consulta> grid = new Grid<>(Consulta.class);
     private final Grid<Contrato> grid2 = new Grid<>(Contrato.class);
 
-    public AtencionClienteView(ConsultaService consultaService,ContratoService contratoService){
+    public AtencionClienteView(ConsultaService consultaService,ContratoService contratoService, ClienteService clienteService){
         H1 welcomeText = new H1("UFJMOVIL");
         H2 welcomeText2 = new H2("Bienvenido, departamento de atención al cliente");
         H4 consultasText = new H4("Consultas de nuestros clientes:");
         H4 contratosText = new H4("Contratos de nuestros clientes:");
-        
 
         VerticalLayout layoutcolumn = new VerticalLayout();
         layoutcolumn.setWidthFull();
@@ -40,8 +40,8 @@ public class AtencionClienteView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
         grid.removeAllColumns(); // Eliminar todas las columnas generadas automáticamente
-        grid.addColumn(Consulta::getDescripcion).setHeader("Descripción");
-        grid.addColumn(Consulta::getEmailContacto).setHeader("Email del cliente");
+        grid.addColumn(Consulta::getDescripcion).setHeader("Descripción").setWidth("65%");
+        grid.addColumn(Consulta::getEmailContacto).setHeader("Email del cliente").setWidth("10%");
 
         grid.addComponentColumn(consulta -> {
             Checkbox checkbox = new Checkbox();
@@ -78,6 +78,9 @@ public class AtencionClienteView extends VerticalLayout {
             });
             return darDeBajaButton;
         }).setHeader("Acciones");
+
+       
+
        
         add(welcomeText);
         add(welcomeText2);
