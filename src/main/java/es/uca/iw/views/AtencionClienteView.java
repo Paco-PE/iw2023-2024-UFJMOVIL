@@ -1,6 +1,5 @@
 package es.uca.iw.views;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.grid.Grid;
@@ -14,7 +13,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import es.uca.iw.MainLayout;
-import es.uca.iw.domain.Cliente;
 import es.uca.iw.domain.Consulta;
 import es.uca.iw.services.ClienteService;
 import es.uca.iw.services.ConsultaService;
@@ -42,8 +40,8 @@ public class AtencionClienteView extends VerticalLayout {
         layoutcolumn.setAlignSelf(FlexComponent.Alignment.CENTER,welcomeText2);
 
         grid.removeAllColumns(); // Eliminar todas las columnas generadas automáticamente
-        grid.addColumn(Consulta::getDescripcion).setHeader("Descripción").setWidth("85%");
-        grid.addColumn(Consulta::getEmailContacto).setHeader("Email del cliente");
+        grid.addColumn(Consulta::getDescripcion).setHeader("Descripción").setWidth("65%");
+        grid.addColumn(Consulta::getEmailContacto).setHeader("Email del cliente").setWidth("10%");
 
         grid.addComponentColumn(consulta -> {
             Checkbox checkbox = new Checkbox();
