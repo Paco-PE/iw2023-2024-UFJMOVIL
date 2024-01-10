@@ -115,6 +115,8 @@ public class ServicioModifyView extends ServicioViewBase implements HasUrlParame
                 break;
         }
 
+        
+
         Notification notification = new Notification("Servicio guardado correctamente");
         notification.setPosition(Notification.Position.TOP_CENTER);
         notification.setDuration(3000);
