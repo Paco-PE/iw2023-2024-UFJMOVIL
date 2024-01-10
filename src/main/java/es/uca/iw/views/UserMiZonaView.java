@@ -94,8 +94,8 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         gridFibra.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridFibra.setAllRowsVisible(true);
         gridFibra.addColumn(Fibra::getName).setHeader("Nombre");
-        gridFibra.addColumn(Fibra::getVelocidadContratadaMb).setHeader("Velocidad");
-        gridFibra.addColumn(Fibra::getPrecio).setHeader("Precio");
+        gridFibra.addColumn(Fibra::getVelocidadContratadaMb).setHeader("Velocidad(Mb/s)");
+        gridFibra.addColumn(Fibra::getPrecio).setHeader("Precio(€)");
         gridFibra.setItems(fibraService.findAll());
         gridFibra.setWidthFull();
         
@@ -134,7 +134,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         gridFijo.addColumn(Telefonia::getName).setHeader("Nombre");
         gridFijo.addColumn(Telefonia::getMinutosMaximos).setHeader("Minutos máximos");
         gridFijo.addColumn(Telefonia::getLlamadasMaximas).setHeader("Llamadas máximas");
-        gridFijo.addColumn(Telefonia::getPrecio).setHeader("Precio");
+        gridFijo.addColumn(Telefonia::getPrecio).setHeader("Precio(€)");
         gridFijo.setItems(telefoniaService.findAllFijo());
         gridFijo.setWidthFull();
 
@@ -174,7 +174,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
         gridMovil.addColumn(Movil::getMinutosMaximos).setHeader("Minutos máximos");
         gridMovil.addColumn(Movil::getLlamadasMaximas).setHeader("Llamadas máximas");
         gridMovil.addColumn(Movil::getDatosMaximosGB).setHeader("Datos máximos");
-        gridMovil.addColumn(Movil::getPrecio).setHeader("Precio");
+        gridMovil.addColumn(Movil::getPrecio).setHeader("Precio(€)");
         gridMovil.setItems(movilService.findAll());
         gridMovil.setWidthFull();
         gridMovil.addComponentColumn(movil -> {
