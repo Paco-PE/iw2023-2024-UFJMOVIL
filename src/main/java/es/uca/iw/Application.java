@@ -13,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -35,6 +36,9 @@ public class Application implements AppShellConfigurator {
         SpringApplication.run(Application.class, args);
     }
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     @Bean
     public CommandLineRunner createAdminUser() {
         return args -> {
@@ -48,6 +52,9 @@ public class Application implements AppShellConfigurator {
                 admin.setHashedPassword("admin");
                 ((UserDetailsServiceImpl) userService).registerUser(admin, Role.ADMINISTRADOR);
             }
+
+            // Código para eliminar la columna costemensual de la tabla contrato
+            jdbcTemplate.execute("ALTER TABLE contrato DROP COLUMN costemensual");
         };
     }
 }
