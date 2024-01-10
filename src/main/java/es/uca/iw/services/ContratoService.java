@@ -54,35 +54,27 @@ public class ContratoService {
     }
 
     @Transactional
-    public Contrato contratar(UUID servicioId, UUID clienteId, Date fechaInicio, Date fechaFin, float costeMensual) {
-
-        Servicio servicio = servicioRepository.findById(servicioId).orElseThrow(() -> new RuntimeException("Servicio no encontrado con ID: " + servicioId));
-        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + clienteId));
-
-        Contrato contrato = new Contrato();
-        if(!(servicio instanceof Fibra)) contrato.setNumeroTelefonoAleatorio();
-        contrato.setServicio(servicio);
-        contrato.setCliente(cliente);
-        contrato.setFechaInicio(fechaInicio);
-        contrato.setFechaFin(fechaFin);
-        contrato.setCosteMensual(costeMensual);
-
-        return contratoRepository.save(contrato);
+    public Contrato contratar(UUID servicioId, UUID clienteId, Date fechaInicio, Date fechaFin) {
+        return contratar(servicioId, clienteId, fechaInicio, fechaFin, null);
     }
 
     @Transactional
-    public Contrato contratar(UUID servicioId, UUID clienteId, Date fechaInicio, Date fechaFin, float costeMensual, String numeroTelefono) {
-
+    public Contrato contratar(UUID servicioId, UUID clienteId, Date fechaInicio, Date fechaFin, String numeroTelefono) {
         Servicio servicio = servicioRepository.findById(servicioId).orElseThrow(() -> new RuntimeException("Servicio no encontrado con ID: " + servicioId));
         Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + clienteId));
 
         Contrato contrato = new Contrato();
-        if(!(servicio instanceof Fibra)) contrato.setNumeroTelefono(numeroTelefono);
+        if(!(servicio instanceof Fibra)) {
+            if (numeroTelefono != null) {
+                contrato.setNumeroTelefono(numeroTelefono);
+            } else {
+                contrato.setNumeroTelefonoAleatorio();
+            }
+        }
         contrato.setServicio(servicio);
         contrato.setCliente(cliente);
         contrato.setFechaInicio(fechaInicio);
         contrato.setFechaFin(fechaFin);
-        contrato.setCosteMensual(costeMensual);
 
         return contratoRepository.save(contrato);
     }
