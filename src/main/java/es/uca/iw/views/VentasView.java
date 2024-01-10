@@ -59,7 +59,7 @@ public class VentasView extends VerticalLayout {
         configureGrid(
             grid, 
             fibraService.findAll(), 
-            Arrays.asList("Nombre", "Precio", "Velocidad Contratada"), 
+            Arrays.asList("Nombre", "Precio(€)", "Velocidad Contratada(Mb/s)"), 
             Fibra::getName, 
             Fibra::getPrecio, 
             Fibra::getVelocidadContratadaMb
@@ -89,7 +89,7 @@ public class VentasView extends VerticalLayout {
             Arrays.asList(
                 "Nombre", 
                 "Tipo de Servicio", 
-                "Precio", 
+                "Precio(€)", 
                 "Minutos Máximos", 
                 "Llamadas Máximas"
             ), 

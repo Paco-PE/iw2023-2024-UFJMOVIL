@@ -37,12 +37,17 @@ public class CreaServicioView extends ServicioViewBase{
         this.movilService = movilService;
 
         nombreField = createTextField("Nombre del Servicio");
-        precioField = createTextField("Precio del Servicio");
-        velocidadContratadaField = createTextField("Velocidad contratada (mb)", false);
+        precioField = createTextField("Precio del Servicio(€)");
+        velocidadContratadaField = createTextField("Velocidad contratada (Mb/s)", false);
+        velocidadContratadaField.setWidth("15%");
         minutosMaximos = createTextField("Minutos maximos permitidos", false);
+        minutosMaximos.setWidth("20%");
         minutosMaximosMovil = createTextField("Minutos maximos permitidos", false);
+        minutosMaximosMovil.setWidth("20%");
         llamadasMaximas = createTextField("Llamadas maximas permitidas", false);
+        llamadasMaximas.setWidth("20%");
         llamadasMaximasMovil = createTextField("Llamadas maximas permitidas", false);
+        llamadasMaximasMovil.setWidth("20%");
         datosMaximos = createTextField("Datos maximos permitidos", false);
         tipoServicioComboBox = new ComboBox<>("Tipo de Servicio");
         tipoServicioComboBox.setItems("Fibra", "Fijo", "Móvil");
