@@ -190,7 +190,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
             return checkbox;
         }).setHeader("Contratado");
 
-        Grid<Movil> gridMisMoviles = new Grid<>();
+        gridMisMoviles = new Grid<>();
         gridMisMoviles.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridMisMoviles.setAllRowsVisible(true);
         gridMisMoviles.addColumn(movil -> {
@@ -303,7 +303,7 @@ public class UserMiZonaView extends Composite<VerticalLayout> {
                     newServices.removeAll(serviciosOld);
 
                     for (Servicio servicio : newServices) {
-                        cliente.addContrato(contratoService.contratar(servicio.getId(), cliente.getId(), new Date(), null, servicio.getPrecio()));
+                        cliente.addContrato(contratoService.contratar(servicio.getId(), cliente.getId(), new Date(), null));
                     }
 
                     clienteService.save(cliente);

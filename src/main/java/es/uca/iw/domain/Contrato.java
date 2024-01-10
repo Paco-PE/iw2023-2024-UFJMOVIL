@@ -69,16 +69,6 @@ public class Contrato {
         this.fechaFin = fechaFin;
     }
 
-    private float costemensual;
-
-    public float getCosteMensual(){
-        return costemensual;
-    }
-
-    public void setCosteMensual(Float costemensual){
-        this.costemensual = costemensual;
-    }
-
     private String numeroTelefono;
 
     public String getNumeroTelefono() {

@@ -63,7 +63,7 @@ public class AtencionClienteView extends VerticalLayout {
         grid2.addColumn(contrato -> contrato.getServicio().getName()).setHeader("Servicio");
         grid2.addColumn(Contrato::getFechaInicio).setHeader("Fecha inicio");
         //grid2.addColumn(Contrato::getFechaFin).setHeader("Fecha fin");
-        grid2.addColumn(Contrato::getCosteMensual).setHeader("Coste mensual");
+        grid2.addColumn(contrato -> contrato.getServicio().getPrecio()).setHeader("Coste mensual");
         DataProvider<Contrato, Void> contratoDataProvider = DataProvider.fromCallbacks(
             query -> contratoService.findAll(query.getOffset(), query.getLimit()),
             query -> contratoService.count()
