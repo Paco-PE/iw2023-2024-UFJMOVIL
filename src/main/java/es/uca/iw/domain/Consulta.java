@@ -10,7 +10,7 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    
+
     private String descripcion;
 
     private boolean resuelta;
@@ -25,27 +25,27 @@ public class Consulta {
         this.id = id;
     }
 
-    public String getDescripcion(){
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion){
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public boolean getResuelta(){
+    public boolean getResuelta() {
         return resuelta;
     }
 
-    public void setResuelta(boolean resuelta){
+    public void setResuelta(boolean resuelta) {
         this.resuelta = resuelta;
     }
 
-    public String getEmailContacto(){
+    public String getEmailContacto() {
         return emailcontacto;
     }
 
-    public void setEmailContacto(String emailcontacto){
+    public void setEmailContacto(String emailcontacto) {
         this.emailcontacto = emailcontacto;
     }
 

@@ -5,5 +5,5 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "empleado")
 public class Empleado extends User {
-    // añadir atributos propios y únicos de Empleados
+    
 }

@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name = "servicio_telefonia")
-@DiscriminatorValue("telefonia") // Valor discriminador para identificar la subclase
+@DiscriminatorValue("telefonia")
 public class Telefonia extends Servicio {
     private int minutosMaximos;
-    private int minutosConsumidos; // atributo derivado y calculado
+    private int minutosConsumidos;
     private int llamadasMaximas;
-    private int nLlamadasRealizadas; // atributo derivado y calculado
+    private int nLlamadasRealizadas;
 
     @OneToMany(mappedBy = "servicioTelefonia")
     private PersistentSet<Llamada> llamadasRealizadas;
