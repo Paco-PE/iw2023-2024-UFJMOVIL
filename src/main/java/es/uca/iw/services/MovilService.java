@@ -23,7 +23,7 @@ public class MovilService {
         if (movil.getId() != null && repository.existsById(movil.getId())) {
             return repository.save(movil);
         } else {
-            throw new IllegalArgumentException("Fibra no encontrada");
+            throw new IllegalArgumentException("Movil no encontrado");
         }
     }
 
