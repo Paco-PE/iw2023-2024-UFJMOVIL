@@ -41,7 +41,7 @@ public abstract class AbstractEntity {
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof AbstractEntity that)) {
-            return false; 
+            return false; // null or not an AbstractEntity class
         }
         if (getId() != null) {
             return getId().equals(that.getId());

@@ -30,11 +30,11 @@ public class Contrato {
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
 
-    public Servicio getServicio(){
+    public Servicio getServicio() {
         return servicio;
     }
 
-    public void setServicio(Servicio servicio){
+    public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
 
@@ -51,6 +51,7 @@ public class Contrato {
     }
 
     private Date fechaInicio;
+
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -60,7 +61,7 @@ public class Contrato {
     }
 
     private Date fechaFin;
-    
+
     public Date getFechaFin() {
         return fechaFin;
     }
@@ -100,7 +101,7 @@ public class Contrato {
     public boolean isRoaming() {
         return roaming;
     }
-    
+
     public void setRoaming(boolean roaming) {
         this.roaming = roaming;
     }
@@ -112,14 +113,15 @@ public class Contrato {
     public List<String> getNumerosBloqueados() {
         return numerosBloqueados;
     }
-    
+
     public void setNumerosBloqueados(List<String> numerosBloqueados) {
         this.numerosBloqueados = numerosBloqueados;
     }
 
-    public boolean addNumeroBloqueado(String numeroTelefono){
-        if(numerosBloqueados == null) numerosBloqueados = new ArrayList<>();
-        if(numerosBloqueados.contains(numeroTelefono)) {
+    public boolean addNumeroBloqueado(String numeroTelefono) {
+        if (numerosBloqueados == null)
+            numerosBloqueados = new ArrayList<>();
+        if (numerosBloqueados.contains(numeroTelefono)) {
             return false;
         } else {
             return this.numerosBloqueados.add(numeroTelefono);

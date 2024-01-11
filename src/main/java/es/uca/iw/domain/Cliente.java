@@ -36,7 +36,7 @@ public class Cliente extends User {
     }
 
     private String numeroTelefono;
-    
+
     public String getNumeroTelefono() {
         return numeroTelefono;
     }

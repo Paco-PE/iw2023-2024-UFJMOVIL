@@ -144,18 +144,19 @@ public class MainLayout extends AppLayout {
         }
 
         header.add(layout, nav);
-        
+
         return header;
     }
 
     private MenuItemInfo[] createMenuItems() {
         List<MenuItemInfo> menuItems = new ArrayList<>();
-    
+
         if (accessChecker.hasAccess(InicioView.class)) {
             menuItems.add(new MenuItemInfo("Inicio", LineAwesomeIcon.GLOBE_SOLID.create(), InicioView.class));
         }
         if (accessChecker.hasAccess(AdminRegistrationView.class)) {
-            menuItems.add(new MenuItemInfo("Registro de Usuario Admin", LineAwesomeIcon.GLOBE_SOLID.create(), AdminRegistrationView.class));
+            menuItems.add(new MenuItemInfo("Registro de Usuario Admin", LineAwesomeIcon.GLOBE_SOLID.create(),
+                    AdminRegistrationView.class));
         }
         if (accessChecker.hasAccess(UserMiZonaView.class)) {
             menuItems.add(new MenuItemInfo("Mi zona", LineAwesomeIcon.GLOBE_SOLID.create(), UserMiZonaView.class));
@@ -164,15 +165,17 @@ public class MainLayout extends AppLayout {
             menuItems.add(new MenuItemInfo("Finanzas", LineAwesomeIcon.GLOBE_SOLID.create(), FinanzasView.class));
         }
         if (accessChecker.hasAccess(AtencionClienteView.class)) {
-            menuItems.add(new MenuItemInfo("Atención Cliente", LineAwesomeIcon.GLOBE_SOLID.create(), AtencionClienteView.class));
+            menuItems.add(new MenuItemInfo("Atención Cliente", LineAwesomeIcon.GLOBE_SOLID.create(),
+                    AtencionClienteView.class));
         }
         if (accessChecker.hasAccess(VentasView.class)) {
             menuItems.add(new MenuItemInfo("Ventas", LineAwesomeIcon.GLOBE_SOLID.create(), VentasView.class));
         }
         if (accessChecker.hasAccess(ContestaConsultaView.class)) {
-            menuItems.add(new MenuItemInfo("Hacer una consulta", LineAwesomeIcon.GLOBE_SOLID.create(), ContestaConsultaView.class));
+            menuItems.add(new MenuItemInfo("Hacer una consulta", LineAwesomeIcon.GLOBE_SOLID.create(),
+                    ContestaConsultaView.class));
         }
-    
+
         return menuItems.toArray(new MenuItemInfo[0]);
     }
 

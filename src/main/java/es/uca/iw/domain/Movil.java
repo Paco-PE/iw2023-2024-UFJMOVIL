@@ -1,8 +1,8 @@
 package es.uca.iw.domain;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.*;
-
 
 import java.util.HashSet;
 import java.util.Set;
